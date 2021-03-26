@@ -1,0 +1,32 @@
+.navigation-sub {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 2rem;
+
+	&__item {
+		list-style: none;
+		margin: 1rem 2rem;
+		color: #333;
+		font-size: 1.5rem;
+		transition: all 0.1s;
+		color: #333;
+		text-decoration: none;
+		text-transform: uppercase;
+		display: inline-block;
+
+		&:not(:last-of-type) {
+			margin-right: 1rem;
+		}
+
+		&:hover {
+			transform: scale(1.1);
+			cursor: pointer;
+		}
+
+		&--active {
+			transform: scale(1.1);
+			font-weight: 600;
+		}
+	}
+}

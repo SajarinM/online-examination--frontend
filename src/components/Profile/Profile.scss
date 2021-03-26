@@ -1,0 +1,49 @@
+@mixin flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.profile {
+	display: flex;
+	padding: 2rem;
+
+	&__left {
+		flex-basis: 25%;
+		margin-right: 2rem;
+	}
+
+	&__right {
+		flex: 1;
+	}
+
+	&__greet-box {
+		display: flex;
+		padding: 1rem;
+		background-color: var(--color-white-1);
+		box-shadow: var(--shadow-light-2);
+		margin-bottom: 2rem;
+		border-radius: 2px;
+	}
+
+	&__greet {
+		flex: 1;
+
+		h2 {
+			text-transform: capitalize;
+		}
+	}
+
+	&__img {
+		margin-right: 2rem;
+	}
+
+	&__options {
+		padding: 1rem;
+		background-color: var(--color-white-1);
+		box-shadow: var(--shadow-light-2);
+		li {
+			list-style: none;
+		}
+	}
+}

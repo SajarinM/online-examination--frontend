@@ -1,0 +1,188 @@
+@import "../../assets/scss/base/mixins.scss";
+
+.question-container {
+	min-height: 100vh;
+	height: 100vh;
+	min-width: 100vw;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+
+	background-color: #000;
+
+	display: grid;
+	grid-template-rows: 1fr 10fr 1fr;
+
+	&__nav-top,
+	&__nav-bottom {
+		display: flex;
+		justify-content: flex-start;
+		align-items: stretch;
+	}
+}
+
+.question {
+	background-color: rgba(43, 42, 116, 0.87);
+	font-family: "RocknRoll One", "Open Sans", sans-serif;
+	border-radius: 10px;
+
+	&__label {
+		@include flex-center;
+		height: 40%;
+
+		text-align: center;
+		font-size: 5rem;
+		color: rgb(255, 255, 255);
+		vertical-align: middle;
+	}
+
+	&__select {
+		flex: 0.3;
+		margin-left: auto;
+	}
+
+	&__text-box {
+		height: 34vh;
+		margin: 5px;
+		flex: 1;
+		background-color: rgb(179, 176, 28);
+		font-size: 3rem;
+		border: 3px solid black;
+		border-radius: 10px;
+
+		&:active,
+		&:focus {
+			outline: none;
+			transform: translateY(-1px);
+			box-shadow: 0 0.5rem 1rem rgba(#000, 0.2);
+		}
+	}
+
+	&__options {
+		display: flex;
+		height: 40vh;
+	}
+
+	&__option {
+		@include flex-center;
+
+		cursor: pointer;
+		position: relative;
+		margin: 5px;
+		width: 25%;
+		height: 34vh;
+		border-radius: 10px;
+		font-size: 2rem;
+		color: rgb(255, 255, 255);
+
+		&:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 1rem 2rem rgba(#000, 0.2);
+		}
+
+		&:active,
+		&:focus {
+			outline: none;
+			transform: translateY(-1px);
+			box-shadow: 0 0.5rem 1rem rgba(#000, 0.2);
+		}
+
+		&--selected {
+			border: 3px solid black;
+		}
+
+		&--1 {
+			background-color: rgb(12, 30, 114);
+		}
+
+		&--2 {
+			background-color: rgb(46, 119, 70);
+		}
+
+		&--3 {
+			background-color: rgb(179, 176, 28);
+		}
+
+		&--4 {
+			background-color: rgb(153, 32, 201);
+		}
+	}
+
+	&__option-tag {
+		@include flex-center;
+
+		position: absolute;
+		border-radius: 5px;
+		border: 1px solid rgb(65, 62, 62);
+		width: 10%;
+		height: 15%;
+		top: 10px;
+		right: 10px;
+		color: rgb(226, 226, 226);
+		text-align: center;
+		word-wrap: break-word;
+	}
+
+	&__nav-item {
+		border: 0;
+		color: #fff;
+		padding: 0.8rem;
+		background-color: hsla(0, 0%, 100%, 0.33);
+		border-radius: 8px;
+		cursor: pointer;
+		transition: background-color 0.2s ease-out;
+		background-color: rgba(255, 255, 255, 0.15);
+		margin-top: 5px;
+		margin-bottom: 5px;
+
+		&--next {
+			margin-left: auto;
+		}
+
+		&--previous {
+		}
+
+		&--submit {
+			padding: 0.8rem 2rem;
+			text-transform: uppercase;
+			font-size: 1.8rem;
+			// font-family: "RocknRoll One", "Open Sans", sans-serif;
+			font-weight: 400;
+		}
+
+		&--save {
+		}
+
+		&:not(:last-child) {
+			margin-right: 10px;
+		}
+
+		&:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 1rem 2rem rgba(#000, 0.2);
+			background-color: rgba(255, 255, 255, 0.28);
+		}
+
+		&:active,
+		&:focus {
+			outline: none;
+			transform: translateY(-0.5px);
+			box-shadow: 0 0.5rem 1rem rgba(#000, 0.2);
+		}
+	}
+
+	&__info {
+		@include flex-center;
+
+		justify-self: flex-start;
+		font-size: 1.8rem;
+		font-family: "RocknRoll One", "Open Sans", sans-serif;
+		font-weight: 400;
+	}
+}
+
+// ICON COLOR : hsla(0,0%,100%,.33)
+
+// hsla(0,0%,100%,.15);

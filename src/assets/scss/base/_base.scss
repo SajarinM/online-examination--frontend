@@ -1,0 +1,12 @@
+// html element styling can't be done in this file. it should be done in index.html
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}

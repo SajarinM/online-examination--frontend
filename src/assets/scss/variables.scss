@@ -1,0 +1,78 @@
+:root {
+	// COLORS
+
+	--color-primary-light: #ff3366;
+	--color-primary-medium: #eb2f64;
+	--color-primary-dark: #ba265d;
+
+	--color-white-1: #fff;
+	--color-white-2: #eee;
+
+	--color-black: #000;
+
+	--color-grey-light-1: #faf9f9;
+	--color-grey-light-2: #f4f2f2;
+	--color-grey-light-3: #f0eeee;
+	--color-grey-light-4: #cdc;
+
+	--color-grey-dark-1: #333;
+	--color-grey-dark-2: #777;
+	--color-grey-dark-3: #999;
+
+	--shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+	--shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+	--shadow-light-2: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+
+	--line: 2px solid var(--color-grey-light-2);
+	--line2: 2px solid var(--color-grey-light-3);
+	--line-dark: 2px solid var(--color-grey-dark-1);
+
+	--content-height: calc(100vh - var(--nav-height));
+
+	// NAVBAR
+	--nav-height: 6.5rem;
+	--nav-color-bg: var(--color-white-1);
+	--nav-color-bg--onHover: var(--color-grey-light-4);
+	--nav-color-bg--onSelect: var(--color-grey-light-4);
+	--nav-color-text: var(--color-grey-dark-1);
+	--nav-color-text--onHover: var(--color-primary-dark);
+	--nav-border-bottom: var(--line);
+	--nav-font-size: 1.5rem;
+	--nav-font-weight: 600;
+	--nav-font-weight--onHover: 600;
+
+	//Sidebar
+	--sidebar-color-bg: var(--color-grey-dark-1);
+	--sidebar-color-text: var(--color-grey-light-1);
+	--sidebar-color-text--onHover: var(--color-grey-light-1);
+	--sidebar-color-item-bg: transparent;
+	--sidebar-color-item-bg--onHover: var(--color-primary-medium);
+	--sidebar-color-item-bg--onSelect: var(--color-primary-medium);
+	--sidebar-width: 17%;
+	--sidebar-margin-bottom: 0.5rem;
+	--sidebar-font-size: 1.6rem;
+	--sidebar-font-weight: 400;
+	// --sidebar-border: var(--line);
+
+	//Card
+	--card-bg: var(--color-white-1);
+	--card-bg--onHover: var(--color-primary-medium);
+	--card-border: 2px solid var(color-grey-light-3);
+	--card-detail-item-border: 1px solid var(--color-grey-light-2);
+	--card-detail-item-color: var(--color-black);
+	--card-title-color: var(--color-white-1);
+	--card-border-radius: 2px;
+
+	//Startup Form
+	--sf-bg: url("../images/nat-10.jpg");
+	--sf-left-bg: rgba(238, 238, 238, 0);
+	--sf-right-bg: var(--color-grey-light-1);
+	--sf-desc-font-color: #eee;
+	--sf-heading-font-color: #f2bb13;
+}
+
+// FONT
+$default-font-size: 1.6rem;
+
+// GRID
+$gutter-horizontal: 4rem;

@@ -1,0 +1,16 @@
+.content {
+	position: relative;
+	background-color: var(--color-grey-light-1);
+}
+
+body {
+}
+
+.section {
+	display: flex;
+	min-height: var(--content-height);
+
+	.section__content {
+		flex: 1;
+	}
+}

@@ -1,0 +1,110 @@
+@import "../../../assets/scss/base/mixins.scss";
+
+.card-container {
+	padding: 2rem;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 2rem;
+	max-height: var(--content-height);
+	overflow-y: scroll;
+}
+
+.card {
+	position: relative;
+	border-radius: var(--card-border-radius);
+	border: var(--card-border);
+	height: 30rem;
+	box-shadow: var(--shadow-light);
+	background-color: var(--card-bg);
+	opacity: 1;
+	overflow: hidden;
+	backface-visibility: hidden;
+
+	& > * {
+		transition: all 0.6s ease;
+	}
+
+	&__title-box {
+		border-top-left-radius: var(--card-border-radius);
+		border-top-right-radius: var(--card-border-radius);
+		background-color: var(--card-bg--onHover);
+		height: 30%;
+		transition: border 0s;
+		border-bottom: 2px solid var(--card-bg);
+
+		@include flex-center;
+	}
+
+	&__title {
+		font-size: 2.5rem;
+		font-weight: 300;
+		text-transform: uppercase;
+		text-align: right;
+		color: var(--card-title-color);
+	}
+
+	&__details {
+		@include flex-center;
+		height: 70%;
+		font-size: 1.4rem;
+		color: var(--card-detail-item-color);
+
+		ul {
+			list-style: none;
+			width: 85%;
+			margin: 0 auto;
+
+			li {
+				text-align: center;
+				padding: 1rem;
+
+				&:not(:last-child) {
+					border-bottom: var(--card-detail-item-border);
+				}
+			}
+		}
+	}
+
+	&__cta {
+		visibility: hidden;
+		background-color: var(--card-bg--onHover);
+		transform: scaleY(0);
+		transform-origin: top;
+		width: 100%;
+		height: 70%;
+		border-bottom-left-radius: var(--card-border-radius);
+		border-bottom-right-radius: var(--card-border-radius);
+		position: absolute;
+		top: 30%;
+		left: 0;
+		@include flex-center;
+
+		transition: all in 2s;
+
+		.button__group {
+			display: flex;
+			flex-direction: column;
+			justify-content: stretch;
+			align-items: stretch;
+			width: 70%;
+			> *:not(:last-child) {
+				margin-bottom: 2rem;
+			}
+		}
+	}
+
+	&__btn {
+		width: 80%;
+		text-align: center;
+	}
+
+	&--animated:hover &__details {
+		opacity: 0;
+	}
+
+	&--animated:hover &__cta {
+		opacity: 1;
+		visibility: initial;
+		transform: scaleY(1);
+	}
+}
