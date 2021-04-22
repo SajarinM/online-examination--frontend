@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ExamContext } from "../../contexts/examContext";
 import { UserContext } from "../../contexts/userContext";
-import ResultProvider from "../../contexts/resultContext";
 import cardMaps from "../../utilities/cardMaps";
 import Sidebar from "../common/Sidebar/Sidebar";
 import ExamForm from "../ExamForm/ExamForm";
@@ -24,7 +23,6 @@ const Exams = () => {
 			route: "/exams/all",
 			icon: { name: "edit-pencil" },
 		},
-		{ label: "Results", route: "/exams/results", icon: { name: "files" } },
 	];
 
 	if (user.type !== "teacher") {
@@ -37,7 +35,6 @@ const Exams = () => {
 			<main className="section__content">
 				<Switch>
 					<Route
-						exact
 						path="/exams/all"
 						render={(props) => (
 							<ExamsList
@@ -46,24 +43,7 @@ const Exams = () => {
 							/>
 						)}
 					/>
-					<Route
-						exact
-						path="/exams/results"
-						render={(props) => (
-							<ExamsList
-								{...props}
-								mapToCardModel={cardMaps.resultsMap}
-							/>
-						)}
-					/>
-					<Route
-						path="/exams/results/:id"
-						render={(props) => (
-							<ResultProvider>
-								<Results />
-							</ResultProvider>
-						)}
-					/>
+					<Route path="/exams/results" component={Results} />
 					<Route
 						path="/exams/:id"
 						render={(props) => (

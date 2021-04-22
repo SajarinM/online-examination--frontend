@@ -1,6 +1,7 @@
 import React from "react";
 import "./Table.scss";
 import _ from "lodash";
+import string from "../../../utilities/string";
 
 const Table = ({ columns, data, serialNo }) => {
 	function createKey(item, column) {
@@ -8,9 +9,14 @@ const Table = ({ columns, data, serialNo }) => {
 	}
 
 	function renderCell(item, column) {
-		if (column.content) return column.content(item);
-
-		return _.get(item, column.path);
+		const { content, title, path, reduceTo } = column;
+		if (content) return content(item);
+		let value = _.get(item, path);
+		if (reduceTo) {
+			value = string.reduceString(value, reduceTo);
+		}
+		if (title) return <div title={_.get(item, title)}>{value}</div>;
+		return value;
 	}
 
 	columns.forEach((column) => {

@@ -11,6 +11,10 @@ body {
 	min-height: var(--content-height);
 
 	.section__content {
+		padding: 2rem;
+		min-height: var(--content-height);
+		max-height: var(--content-height);
+		overflow-y: auto;
 		flex: 1;
 	}
 }

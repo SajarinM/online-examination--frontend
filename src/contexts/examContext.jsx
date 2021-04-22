@@ -49,8 +49,25 @@ const ExamProvider = ({ children }) => {
 			setExams(exams.filter((e) => e._id !== id));
 			await examService.deleteExam(id);
 		} catch (error) {
-			toast.error("Error deleting examination.Please try again");
+			toast.error("Error deleting examination.Please try again...");
 			setExams(originalExams);
+		}
+	}
+
+	async function publishResults(id) {
+		try {
+			const { data: publishedExam } = await examService.publishResults(
+				id
+			);
+			const newExams = [...exams];
+			const existingExam = exams.find((e) => e._id === id);
+			const index = exams.indexOf(existingExam);
+			newExams[index] = publishedExam;
+			setExams(newExams);
+			toast.success("Results published successfully");
+		} catch (error) {
+			console.log(error);
+			toast.error("Error publishing results.Please try again...");
 		}
 	}
 
@@ -60,7 +77,14 @@ const ExamProvider = ({ children }) => {
 
 	return (
 		<ExamContext.Provider
-			value={{ exams, loading, saveExam, deleteExam, getExam }}
+			value={{
+				exams,
+				loading,
+				saveExam,
+				deleteExam,
+				getExam,
+				publishResults,
+			}}
 		>
 			{children}
 		</ExamContext.Provider>

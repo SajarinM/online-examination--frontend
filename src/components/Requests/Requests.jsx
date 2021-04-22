@@ -4,6 +4,7 @@ import ListGroup from "../common/ListGroup";
 import { UserContext } from "./../../contexts/userContext";
 import "./Requests.scss";
 import SendRequest from "./SendRequest";
+import RequestProvider from "../../contexts/requestContext";
 
 const Requests = () => {
 	const user = useContext(UserContext);
@@ -29,7 +30,7 @@ const Requests = () => {
 	const [selectedStatus, setSelectedStatus] = useState(navItems[0]);
 
 	return (
-		<div>
+		<RequestProvider>
 			{user.type === "student" && <SendRequest />}
 			<section className="section-requests">
 				<ListGroup
@@ -43,7 +44,7 @@ const Requests = () => {
 				/>
 				<RequestsTable selectedStatus={selectedStatus} />
 			</section>
-		</div>
+		</RequestProvider>
 	);
 };
 

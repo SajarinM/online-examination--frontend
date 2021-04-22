@@ -35,8 +35,8 @@ function getAnswers(examId) {
 	return http.post(getExamUrl(examId), { action: "start" });
 }
 
-function getResults(examId) {
-	return http.get(`${apiEndpoint}/results/${examId}`);
+function publishResults(id) {
+	return http.post(getExamUrl(id), { action: "publish" });
 }
 
 const examService = {
@@ -46,7 +46,7 @@ const examService = {
 	getQuestions,
 	getAnswers,
 	saveAnswers,
-	getResults,
+	publishResults,
 };
 
 export default examService;

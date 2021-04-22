@@ -10,7 +10,6 @@ import Exams from "./components/Exams/Exams";
 import Logout from "./components/Logout";
 import UserProvider from "./contexts/userContext";
 import ExamProvider from "./contexts/examContext";
-import RequestProvider from "./contexts/requestContext";
 // import Students from "./components/MyProfile";
 import QuestionPaper from "./components/QuestionPaper/QuestionPaper";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,27 +20,25 @@ const App = () => {
 	return (
 		<UserProvider>
 			<ExamProvider>
-				<RequestProvider>
-					<ToastContainer position="bottom-right" />
-					<div className="content">
-						<Navbar />
-						<Switch>
-							{/* <Route path="/students" component={Students} />
+				<ToastContainer position="bottom-right" />
+				<div className="content">
+					<Navbar />
+					<Switch>
+						{/* <Route path="/students" component={Students} />
 							<Route path="/teachers" component={Teachers} /> */}
-							<Route
-								exact
-								path="/exams/write/:id"
-								component={QuestionPaper}
-							/>
-							<Route path="/exams" component={Exams} />
-							<Route path="/login" component={LoginForm} />
-							<Route path="/logout" component={Logout} />
-							<Route path="/signup" component={SignupForm} />
-							<Route path="/account" component={MyProfile} />
-							<Redirect exact from="/" to="/login" />
-						</Switch>
-					</div>
-				</RequestProvider>
+						<Route
+							exact
+							path="/exams/write/:id"
+							component={QuestionPaper}
+						/>
+						<Route path="/exams" component={Exams} />
+						<Route path="/login" component={LoginForm} />
+						<Route path="/logout" component={Logout} />
+						<Route path="/signup" component={SignupForm} />
+						<Route path="/account" component={MyProfile} />
+						<Redirect exact from="/" to="/login" />
+					</Switch>
+				</div>
 			</ExamProvider>
 		</UserProvider>
 	);

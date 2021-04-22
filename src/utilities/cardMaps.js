@@ -30,6 +30,10 @@ function allExamsMap({ exam, examContext, user }) {
 				link: `/exams/${isTeacher ? _id : "write/" + _id}`,
 				disabled: isTeacher ? false : !isOnTime,
 			},
+			{
+				text: `view result`,
+				link: `/exams/results/${_id}`,
+			},
 		],
 		isHoverEnabled: isTeacher ? true : isOnTime,
 	};
@@ -43,6 +47,8 @@ function allExamsMap({ exam, examContext, user }) {
 				examContext.deleteExam(_id);
 			},
 		});
+	} else if (!exam.isResultPublished) {
+		card.buttons.pop();
 	}
 
 	return card;
@@ -50,18 +56,7 @@ function allExamsMap({ exam, examContext, user }) {
 
 function resultsMap({ exam, user }) {
 	const isTeacher = user.type === "teacher";
-	const {
-		_id,
-		startingTime,
-		dueTime,
-		name,
-		noOfQuestions,
-		totalMarks,
-		participants,
-	} = exam;
-
-	const isOnTime =
-		new Date(startingTime) <= new Date() && new Date() <= new Date(dueTime);
+	const { _id: examID, name, noOfQuestions, totalMarks, participants } = exam;
 
 	const card = {
 		title: name,
@@ -71,9 +66,8 @@ function resultsMap({ exam, user }) {
 		],
 		buttons: [
 			{
-				text: `view`,
-				link: `/exams/results/${_id}`,
-				disabled: isTeacher ? false : !isOnTime,
+				text: `view result`,
+				link: `/exams/results/${examID}`,
 			},
 		],
 		isHoverEnabled: true,

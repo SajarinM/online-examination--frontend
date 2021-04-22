@@ -27,7 +27,7 @@ const RequestProvider = ({ children }) => {
 			teacher,
 			student
 		);
-		setRequests([request, requests]);
+		setRequests([request, ...requests]);
 	};
 
 	const updateRequest = async (request, status) => {

@@ -91,7 +91,7 @@ const ExamForm = () => {
 	];
 
 	useEffect(() => {
-		async function populateExam() {
+		function populateExam() {
 			if (id === "new") {
 				setData(initialData);
 				setErrors({});
@@ -114,8 +114,8 @@ const ExamForm = () => {
 		populateExam();
 	}, [exams, id, getExam]);
 
-	async function doSubmit() {
-		await saveExam({
+	function doSubmit() {
+		saveExam({
 			...data,
 			questions,
 		});
@@ -165,7 +165,7 @@ const ExamForm = () => {
 					add question
 				</div>
 				{questions.length > 0 && (
-					<Table columns={columns} datas={questions} />
+					<Table columns={columns} data={questions} />
 				)}
 
 				<div className="form__button-group">
