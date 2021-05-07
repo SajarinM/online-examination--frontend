@@ -18,14 +18,13 @@ const QuestionPaper = () => {
 	useEffect(() => {
 		async function poulateQuestionPaper() {
 			try {
-				const { data: questions } = await examService.getQuestions(
-					examId
-				);
-				let { data: answers } = await examService.getAnswers(examId);
-				if (answers.length === 0) answers = questions.map((q) => "");
-
-				setQuestions(questions);
-				setAnswers(answers);
+				let {
+					data: { questions: newQuestions, answers: newAnswers },
+				} = await examService.getExamData(examId);
+				if (newAnswers.length === 0)
+					newAnswers = newQuestions.map((q) => "");
+				setQuestions(newQuestions);
+				setAnswers(newAnswers);
 				setIsLoading(false);
 			} catch (error) {
 				if (error.response && error.response.status === 400) {

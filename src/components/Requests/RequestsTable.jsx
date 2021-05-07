@@ -27,38 +27,39 @@ const RequestsTable = ({ selectedStatus }) => {
 		{
 			key: "accepted",
 			render: user.type === userTypes.teacher,
-			content: (request) => (
-				<button
-					disabled={request.status === "accepted"}
-					value="accepted"
-					onClick={(e) =>
-						handleStatusUpdate(request, e.currentTarget.value)
-					}
-				>
-					Accept
-				</button>
-			),
+			content: (request) =>
+				request.status === "pending" && (
+					<button
+						value="accepted"
+						onClick={(e) =>
+							handleStatusUpdate(request, e.currentTarget.value)
+						}
+					>
+						Accept
+					</button>
+				),
 		},
 		{
 			key: "rejected",
 			render: user && user.type === userTypes.teacher,
-			content: (request) => (
-				<button
-					disabled={request.status === "rejected"}
-					value="rejected"
-					onClick={(e) =>
-						handleStatusUpdate(request, e.currentTarget.value)
-					}
-				>
-					Reject
-				</button>
-			),
+			content: (request) =>
+				request.status === "pending" && (
+					<button
+						value="rejected"
+						onClick={(e) =>
+							handleStatusUpdate(request, e.currentTarget.value)
+						}
+					>
+						Reject
+					</button>
+				),
 		},
 	];
 
 	const handleStatusUpdate = async (request, status) => {
 		try {
-			await updateRequest(request, status);
+			const message = await updateRequest(request, status);
+			toast.success(message);
 		} catch (error) {
 			toast.error(error.message);
 		}

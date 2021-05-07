@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import Table from "../common/Table/Table";
 import { useParams } from "react-router";
 import { UserContext } from "../../contexts/userContext";
@@ -50,44 +50,48 @@ const AnswerTable = () => {
 		},
 		{
 			label: "Marks Given",
-			key: "marksGiven",
-			content: (item) => {
-				if (!item.marksGiven && item.type === "optional")
-					return (
-						item.marksGiven || (
-							<button
-								onClick={() => {
-									const questionNo = data.indexOf(item);
-									editResult(resultId, {
-										questionNo,
-										mark: "calculate",
-									});
-								}}
-							>
-								calculate
-							</button>
-						)
-					);
-				return item.marksGiven;
-			},
+			path: "marksGiven",
 		},
 		{
-			label: "Edit Mark",
+			label: "",
 			key: "edit_mark",
 			render: isTeacher,
 			content: (item) => (
 				<TextButton
-					button={{ label: "Edit" }}
+					button={{ label: "Edit Mark" }}
 					doSubmit={(mark) => {
 						const questionNo = data.indexOf(item);
-						editResult(resultId, { questionNo, mark });
+						editResult(resultId, {
+							action: "edit mark",
+							questionNo,
+							mark,
+						});
 					}}
 				/>
 			),
 		},
 	];
 
-	return <Table columns={columns} data={data} />;
+	return (
+		<Fragment>
+			{isTeacher && (
+				<button
+					onClick={() => {
+						editResult(resultId, {
+							action: "calculate mark",
+						});
+					}}
+				>
+					Calculate Marks Of optional questions
+				</button>
+			)}
+			<div>
+				total mark:{" "}
+				{data.reduce((acc, item) => acc + parseInt(item.marksGiven), 0)}
+			</div>
+			<Table columns={columns} data={data} />;
+		</Fragment>
+	);
 };
 
 export default AnswerTable;

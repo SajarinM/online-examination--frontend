@@ -37,6 +37,7 @@ const ResultsTable = () => {
 				>
 					Publish Result
 				</button>
+				<button onClick={() => {}}>Calculate Marks</button>
 
 				<Table columns={columns} data={results} serialNo="No" />
 			</Fragment>

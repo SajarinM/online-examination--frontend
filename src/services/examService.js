@@ -23,15 +23,11 @@ function deleteExam(examId) {
 	return http.delete(getExamUrl(examId));
 }
 
-function getQuestions(examId) {
-	return http.get(getExamUrl(examId));
-}
-
 function saveAnswers(examId, answers) {
 	return http.post(getExamUrl(examId), { answers, action: "save" });
 }
 
-function getAnswers(examId) {
+function getExamData(examId) {
 	return http.post(getExamUrl(examId), { action: "start" });
 }
 
@@ -43,8 +39,7 @@ const examService = {
 	saveExam,
 	getExams,
 	deleteExam,
-	getQuestions,
-	getAnswers,
+	getExamData,
 	saveAnswers,
 	publishResults,
 };

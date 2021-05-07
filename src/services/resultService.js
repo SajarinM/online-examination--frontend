@@ -15,6 +15,8 @@ function editResult(resultId, body) {
 	return http.put(getResultUrl(resultId), body);
 }
 
+function saveResult(resultId) {}
+
 const resultService = {
 	getResults,
 	editResult,

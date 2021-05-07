@@ -13,9 +13,9 @@ const Sidebar = ({ navlinks }) => {
 					return (
 						<li key={route} className="sidebar-nav__item">
 							<NavLink
-								activeClassName="sidebar-nav__link--active"
 								to={route}
 								className="sidebar-nav__link"
+								activeClassName="sidebar-nav__link--active"
 							>
 								{icon && (
 									<Icon

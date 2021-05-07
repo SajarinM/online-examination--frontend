@@ -39,7 +39,12 @@ const RequestProvider = ({ children }) => {
 		setRequests(updatedRequests);
 
 		try {
-			await requestService.updateRequest(request, status);
+			const { data } = await requestService.updateRequest(
+				request,
+				status
+			);
+			console.log(data);
+			return data.message;
 		} catch (error) {
 			setRequests(originalRequests);
 			throw new Error("Error while updating request");
