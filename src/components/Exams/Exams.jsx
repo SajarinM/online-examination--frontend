@@ -1,63 +1,59 @@
-import React, { useContext } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Fragment } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { ExamContext } from "../../contexts/examContext";
 import { UserContext } from "../../contexts/userContext";
-import cardMaps from "../../utilities/cardMaps";
-import Sidebar from "../common/Sidebar/Sidebar";
-import ExamForm from "../ExamForm/ExamForm";
-import Results from "../Results/Results";
+import Icon from "./../common/Icon/Icon";
+import Searchbox from "../common/Searchbox/Searchbox";
 import ExamsList from "./ExamsList";
+import queryString from "query-string";
 
 const Exams = () => {
 	const user = useContext(UserContext);
-	const examContext = useContext(ExamContext);
+	const { exams } = useContext(ExamContext);
+	const query = queryString.parse(useLocation().search);
 
-	const sidebarNavlinks = [
-		{
-			label: "Add Exam",
-			route: "/exams/new",
-			icon: { name: "add-outline" },
-		},
-		{
-			label: "All Exams",
-			route: "/exams/all",
-			icon: { name: "edit-pencil" },
-		},
-	];
+	const [search, setSearch] = useState("");
 
-	if (user.type !== "teacher") {
-		sidebarNavlinks.shift();
+	function populateExams() {
+		let data = exams;
+		console.log(query);
+		const { teacher } = query;
+		if (teacher) data = data.filter((e) => e.author._id === teacher);
+		if (search)
+			data = data.filter((e) =>
+				e.name.toLowerCase().includes(search.toLowerCase())
+			);
+		return data;
 	}
 
 	return (
-		<section className="section">
-			<Sidebar navlinks={sidebarNavlinks} />
-			<main className="section__content">
-				<Switch>
-					<Route
-						path="/exams/all"
-						render={(props) => (
-							<ExamsList
-								{...props}
-								mapToCardModel={cardMaps.allExamsMap}
-							/>
-						)}
-					/>
-					<Route path="/exams/results" component={Results} />
-					<Route
-						path="/exams/:id"
-						render={(props) => (
-							<ExamForm
-								{...props}
-								user={user}
-								examContext={examContext}
-							/>
-						)}
-					/>
-					<Redirect exact from="/exams" to="/exams/all" />
-				</Switch>
-			</main>
-		</section>
+		<Fragment>
+			<section className="actions">
+				{user.type === "teacher" && (
+					<Link
+						to="/exams/new"
+						className="btn btn-success btn-icon action-item"
+					>
+						<Icon
+							name="add-outline"
+							size="20"
+							className="sidebar-nav__icon"
+						/>
+						<span>Create new Exam</span>
+					</Link>
+				)}
+				<Searchbox
+					value={search}
+					setValue={setSearch}
+					placeholder="Search exams..."
+				/>
+			</section>
+
+			<section className="content">
+				<ExamsList exams={populateExams()} />
+			</section>
+		</Fragment>
 	);
 };
 

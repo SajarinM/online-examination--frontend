@@ -4,8 +4,9 @@ import { useParams } from "react-router";
 import { UserContext } from "../../contexts/userContext";
 import { ResultContext } from "../../contexts/resultContext";
 import TextButton from "../common/TextButton/TextButton";
+import BackButton from "../common/BackButton";
 
-const AnswerTable = () => {
+const Answers = () => {
 	const { isTeacher } = useContext(UserContext);
 	const { getResult, editResult } = useContext(ResultContext);
 
@@ -74,24 +75,41 @@ const AnswerTable = () => {
 
 	return (
 		<Fragment>
-			{isTeacher && (
-				<button
-					onClick={() => {
-						editResult(resultId, {
-							action: "calculate mark",
-						});
-					}}
+			<section className="actions">
+				<BackButton className="btn btn-outline-primary action-item" />
+
+				<div
+					className="btn btn-secondary action-item ml-auto"
+					style={{ cursor: "initial" }}
 				>
-					Calculate Marks Of optional questions
-				</button>
-			)}
-			<div>
-				total mark:{" "}
-				{data.reduce((acc, item) => acc + parseInt(item.marksGiven), 0)}
-			</div>
-			<Table columns={columns} data={data} />;
+					Total marks :{" "}
+					{data.reduce(
+						(acc, item) => acc + (parseInt(item.marksGiven) || 0),
+						0
+					)}
+				</div>
+				{isTeacher && (
+					<button
+						className="btn btn-primary action-item"
+						onClick={() => {
+							editResult(resultId, {
+								action: "calculate mark",
+							});
+						}}
+					>
+						Calculate Marks
+					</button>
+				)}
+			</section>
+			<section className="content">
+				<Table
+					className="bg-white br-4 fl-1"
+					columns={columns}
+					data={data}
+				/>
+			</section>
 		</Fragment>
 	);
 };
 
-export default AnswerTable;
+export default Answers;

@@ -1,17 +1,14 @@
-import { Component } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import authService from "../services/authService";
 
-class Logout extends Component {
-	componentDidMount() {
+const Logout = () => {
+	useEffect(() => {
 		authService.logout();
 		toast.success("Successfully Logged out");
 		window.location = "/";
-	}
-
-	render() {
-		return null;
-	}
-}
+	}, []);
+	return null;
+};
 
 export default Logout;

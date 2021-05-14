@@ -13,6 +13,7 @@ const useForm = ({
 	doSubmit,
 	requiresValidation = true,
 	schema,
+	onReset,
 	errorClassName,
 }) => {
 	function handleSubmit(e) {
@@ -120,21 +121,36 @@ const useForm = ({
 		);
 	}
 
-	function renderSubmitButton(label = "submit", className = "btn btn--blue") {
+	function renderSubmitButton({
+		label = "Submit",
+		className = "btn btn-primary",
+		render,
+	}) {
 		return (
 			<button
 				disabled={requiresValidation && validateAll()}
 				className={className}
 			>
-				{label}
+				{render ? render : label}
 			</button>
 		);
 	}
 
-	function renderResetButton(label = "reset", className = "btn btn--blue") {
+	function renderResetButton({
+		label = "reset",
+		className = "btn btn-primary",
+		exclude,
+		render,
+	}) {
 		return (
-			<button onClick={(e) => resetForm(e)} className={className}>
-				{label}
+			<button
+				onClick={(e) => {
+					if (onReset) return onReset(e);
+					resetForm(e);
+				}}
+				className={className}
+			>
+				{render ? render : label}
 			</button>
 		);
 	}

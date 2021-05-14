@@ -1,17 +1,13 @@
-import React, {
-	createRef,
-	Fragment,
-	useContext,
-	useEffect,
-	useState,
-} from "react";
+import React, { createRef, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ExamContext } from "../../contexts/examContext";
 import useForm from "../common/Form/useForm";
+import Icon from "../common/Icon/Icon";
 import Popup from "../common/Popup/Popup";
 import Table from "../common/Table/Table";
 import QuestionForm from "../QuestionForm/QuestionForm";
 import date from "./../../utilities/date";
+import BackButton from "./../common/BackButton";
 
 const initialData = {
 	name: "",
@@ -28,12 +24,7 @@ const ExamForm = () => {
 	const { id } = useParams();
 	const questionPopup = createRef();
 
-	const {
-		handleSubmit,
-		renderTextInput,
-		renderSubmitButton,
-		renderResetButton,
-	} = useForm({
+	const { handleSubmit, renderTextInput, renderSubmitButton } = useForm({
 		data,
 		setData,
 		errors,
@@ -60,13 +51,13 @@ const ExamForm = () => {
 			label: "",
 			content: (question) => (
 				<div
-					className="btn btn--green"
+					className="btn btn-warning btn-small btn-round"
 					onClick={() => {
 						setSelectedQuestion(question);
 						questionPopup.current.show();
 					}}
 				>
-					edit
+					<Icon name="edit-pencil" size="15" />
 				</div>
 			),
 			key: "edit",
@@ -75,7 +66,7 @@ const ExamForm = () => {
 			label: "",
 			content: (question) => (
 				<div
-					className="btn btn--red"
+					className="btn btn-danger btn-small btn-round"
 					onClick={() => {
 						const filterdQuestions = questions.filter(
 							(q) => q._id !== question._id
@@ -83,7 +74,7 @@ const ExamForm = () => {
 						setQuestions(filterdQuestions);
 					}}
 				>
-					delete
+					<Icon name="bin" size="17" />
 				</div>
 			),
 			key: "delete",
@@ -137,41 +128,49 @@ const ExamForm = () => {
 	}
 
 	return (
-		<Fragment>
+		<>
 			<form className="form" onSubmit={handleSubmit}>
-				{renderTextInput({
-					name: "name",
-					label: "Exam Name",
-					autoFocus: true,
-				})}
-				{renderTextInput({
-					name: "startingTime",
-					label: "Starting Time",
-					type: "datetime-local",
-				})}
-				{renderTextInput({
-					name: "dueTime",
-					label: "Due Time",
-					type: "datetime-local",
-					min: data.startingTime,
-				})}
-				<div
-					className="btn btn--green"
-					onClick={() => {
-						questionPopup.current && questionPopup.current.show();
-						setSelectedQuestion(null);
-					}}
-				>
-					add question
-				</div>
-				{questions.length > 0 && (
-					<Table columns={columns} data={questions} />
-				)}
-
-				<div className="form__button-group">
-					{renderSubmitButton("Submit", "btn btn--green")}
-					{renderResetButton("Reset", "btn btn--green")}
-				</div>
+				<section className="actions">
+					<BackButton className="btn btn-outline-primary action-item" />
+					{renderSubmitButton({
+						className: "btn btn-success action-item ml-auto",
+						render: <Icon name="check" size="20" />,
+					})}
+				</section>
+				<section className="content d-flex-c">
+					<div className="exam-form fl-1">
+						{renderTextInput({
+							name: "name",
+							label: "Name",
+							autoFocus: true,
+						})}
+						{renderTextInput({
+							name: "startingTime",
+							label: "Starting Time",
+							type: "datetime-local",
+						})}
+						{renderTextInput({
+							name: "dueTime",
+							label: "Due Time",
+							type: "datetime-local",
+							min: data.startingTime,
+						})}
+						<div
+							className="btn btn-outline-success btn-icon "
+							onClick={() => {
+								questionPopup.current &&
+									questionPopup.current.show();
+								setSelectedQuestion(null);
+							}}
+						>
+							<Icon name="add-outline" size="20" />
+							<span>Add question</span>
+						</div>
+						{questions.length > 0 && (
+							<Table columns={columns} data={questions} />
+						)}
+					</div>
+				</section>
 			</form>
 			<Popup ref={questionPopup}>
 				<QuestionForm
@@ -179,7 +178,7 @@ const ExamForm = () => {
 					addQuestion={handleAddQuestion}
 				/>
 			</Popup>
-		</Fragment>
+		</>
 	);
 };
 

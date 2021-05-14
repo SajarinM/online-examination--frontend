@@ -35,6 +35,14 @@ const QuestionForm = ({ selectedQuestion, addQuestion }) => {
 		doSubmit: function () {
 			addQuestion(mapToPhysicalModel(data));
 		},
+		onReset: function (e) {
+			e.preventDefault();
+			let newData = {};
+			for (let item of Object.keys(data)) newData[item] = "";
+			newData._id = data._id;
+			setData(newData);
+			setErrors({});
+		},
 		requiresValidation: true,
 		schema,
 	});

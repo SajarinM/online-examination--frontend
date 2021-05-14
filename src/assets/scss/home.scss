@@ -6,6 +6,11 @@
 body {
 }
 
+main {
+	max-height: 100vh;
+	overflow-y: auto;
+}
+
 .section {
 	display: flex;
 	min-height: var(--content-height);
@@ -17,4 +22,51 @@ body {
 		overflow-y: auto;
 		flex: 1;
 	}
+}
+
+.container {
+	display: flex;
+	min-height: 100vh;
+
+	main {
+		flex: 1;
+	}
+}
+
+.actions {
+	border-bottom: var(--line);
+	display: flex;
+	padding: 1rem;
+	height: var(--actions-height);
+
+	.action-item {
+		padding: 0.5rem 2rem;
+		font-size: 1.4rem;
+		&:not(:last-child) {
+			margin-right: 1rem;
+		}
+	}
+}
+
+.content {
+	padding: 1.5rem;
+	background-color: rgb(248, 237, 237);
+	min-height: var(--content-height);
+	height: var(--content-height);
+}
+
+.section-exams {
+	&-list {
+		padding: 2rem 1rem;
+	}
+}
+
+.exam-form {
+	position: relative;
+	background-color: white;
+	border-radius: 4px;
+	padding: 1rem;
+}
+
+.friends {
 }

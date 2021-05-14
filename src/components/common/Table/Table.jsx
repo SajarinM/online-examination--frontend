@@ -3,7 +3,7 @@ import "./Table.scss";
 import _ from "lodash";
 import string from "../../../utilities/string";
 
-const Table = ({ columns, data, serialNo }) => {
+const Table = ({ columns, data, serialNo, className }) => {
 	function createKey(item, column) {
 		return item._id + (column.path || column.key);
 	}
@@ -20,17 +20,18 @@ const Table = ({ columns, data, serialNo }) => {
 	}
 
 	columns.forEach((column) => {
-		column.render = column.render === undefined ? true : column.render;
+		column.condition =
+			column.condition === undefined ? true : column.condition;
 	});
 
 	return (
-		<table className="table">
+		<table className={`table ${className}`}>
 			<thead>
 				<tr>
 					{serialNo && <th>{serialNo}</th>}
 					{columns.map(
 						(column) =>
-							column.render && (
+							column.condition && (
 								<th key={column.path || column.key}>
 									{column.label}
 								</th>
@@ -44,7 +45,7 @@ const Table = ({ columns, data, serialNo }) => {
 						{serialNo && <td>{index + 1}</td>}
 						{columns.map((column) => {
 							return (
-								column.render && (
+								column.condition && (
 									<td key={createKey(item, column)}>
 										{renderCell(item, column)}
 									</td>

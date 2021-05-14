@@ -14,7 +14,7 @@ const TextButton = ({
 			{!enabled && (
 				<button
 					onClick={() => setEnabled(true)}
-					className="text-button__button"
+					className="btn btn-danger text-button__button"
 				>
 					{button.label}
 				</button>
@@ -29,6 +29,7 @@ const TextButton = ({
 						if (e.key === "Enter") {
 							doSubmit(value);
 							setEnabled(false);
+							setValue("");
 						}
 					}}
 					onBlur={() => {

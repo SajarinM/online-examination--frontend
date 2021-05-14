@@ -4,6 +4,11 @@
 	align-items: center;
 }
 
+.u-x-center {
+	display: flex;
+	justify-content: center;
+}
+
 .u-abs-center {
 	position: absolute;
 	top: 50%;
@@ -15,8 +20,13 @@
 	display: none;
 }
 
-.u-d-flex {
+.d-flex {
 	display: flex;
+}
+
+.d-flex-c {
+	display: flex;
+	flex-direction: column;
 }
 
 .u-prevent-copy {
@@ -115,4 +125,20 @@
 .u-hidden {
 	visibility: hidden;
 	opacity: 0;
+}
+
+.ml-auto {
+	margin-left: auto;
+}
+
+.bg-white {
+	background-color: white;
+}
+
+.br-4 {
+	border-radius: 4px;
+}
+
+.mh-100 {
+	min-height: 100vh !important;
 }

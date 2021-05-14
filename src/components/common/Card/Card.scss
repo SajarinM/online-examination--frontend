@@ -11,29 +11,31 @@
 	border-radius: var(--card-border-radius);
 	border: var(--card-border);
 	height: 30rem;
-	box-shadow: var(--shadow-light);
+	box-shadow: 0.3rem 0.3rem 0.7rem rgba(0, 0, 0, 0.111);
 	background-color: var(--card-bg);
 	opacity: 1;
-	overflow: hidden;
+	// overflow: hidden;
 	backface-visibility: hidden;
+	border: var(--card-border);
 
+	&,
 	& > * {
-		transition: all 0.6s ease;
+		transition: all 0.4s ease;
 	}
 
 	&__title-box {
 		border-top-left-radius: var(--card-border-radius);
 		border-top-right-radius: var(--card-border-radius);
 		background-color: var(--card-bg--onHover);
-		height: 30%;
+		height: 18%;
 		transition: border 0s;
-		border-bottom: 2px solid var(--card-bg);
+		border-bottom: var(--card-border);
 
 		@include flex-center;
 	}
 
 	&__title {
-		font-size: 2.5rem;
+		font-size: 1.7rem;
 		font-weight: 300;
 		text-transform: uppercase;
 		text-align: right;
@@ -42,8 +44,8 @@
 
 	&__details {
 		@include flex-center;
-		height: 70%;
-		font-size: 1.4rem;
+		height: 82%;
+		font-size: 1.3rem;
 		color: var(--card-detail-item-color);
 
 		ul {
@@ -64,49 +66,42 @@
 
 	&__cta {
 		visibility: hidden;
-		background-color: var(--card-bg--onHover);
-		transform: scaleY(0);
-		transform-origin: top;
+		background-color: transparent;
+		transform: scaleX(0);
+		transform-origin: right;
 		width: 100%;
-		height: 70%;
-		border-bottom-left-radius: var(--card-border-radius);
-		border-bottom-right-radius: var(--card-border-radius);
+		height: 20%;
 		position: absolute;
-		top: 30%;
+		top: 82%;
 		left: 0;
-		@include flex-center;
+		display: flex;
+		justify-content: flex-end;
+		padding: 0.5rem 1rem 1.5rem 1rem;
+		margin-bottom: 1rem;
 
-		transition: all in 2s;
-
-		.button__group {
-			display: flex;
-			flex-direction: column;
-			justify-content: stretch;
-			align-items: stretch;
-			width: 70%;
-			> *:not(:last-child) {
-				margin-bottom: 2rem;
-			}
+		& > * {
+			flex: 1;
 		}
 	}
 
 	&__btn {
-		&,
-		&:link,
-		&:visited {
-			width: 80%;
-			text-align: center;
-			font-size: 1.4rem !important;
+		&:not(:last-child) {
+			margin-right: 0.3rem;
 		}
 	}
 
+	&--animated:hover {
+		transform: translateY(-1px);
+		box-shadow: 0.4rem 0.4rem 0.7rem rgba(0, 0, 0, 0.213);
+	}
+
 	&--animated:hover &__details {
-		opacity: 0;
+		opacity: 0.4;
 	}
 
 	&--animated:hover &__cta {
 		opacity: 1;
 		visibility: initial;
-		transform: scaleY(1);
+		transform: scaleX(1);
 	}
 }

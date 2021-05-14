@@ -3,7 +3,7 @@ import { apiUrl } from "../config.json";
 
 const apiEndpoint = apiUrl + "users";
 
-export async function register(user) {
+export function register(user) {
 	return http.post(apiEndpoint, {
 		name: user.name,
 		type: user.type === "Student" ? "student" : "teacher",
@@ -12,8 +12,18 @@ export async function register(user) {
 	});
 }
 
-const userService = {
+export function getFriends() {
+	return http.get(apiEndpoint);
+}
+
+export function unEnroll(friendUsername) {
+	return http.post(apiEndpoint + "/unenroll", { friendUsername });
+}
+
+export const userService = {
 	register,
+	getFriends,
+	unEnroll,
 };
 
 export default userService;

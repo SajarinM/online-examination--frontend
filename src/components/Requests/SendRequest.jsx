@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { UserContext } from "../../contexts/userContext";
 import { RequestContext } from "../../contexts/requestContext";
 import useForm from "../common/Form/useForm";
+import Icon from "../common/Icon/Icon";
 
 const SendRequest = () => {
 	const user = useContext(UserContext);
@@ -43,23 +44,28 @@ const SendRequest = () => {
 	}
 
 	return (
-		<form className="form" onSubmit={handleSubmit}>
-			<div className="row p-y-1 b-b-1">
-				<div className="col-3-of-4 u-flex-center">
+		<form className="form fl-1" onSubmit={handleSubmit}>
+			<div className="row">
+				<div className="col-3-of-4 u-x-center">
 					{renderTextInput({
 						name: "teacherUsername",
-						placeholder: "Enter teacher id.......",
-						formGroupClassName:
-							"form-group u-flex-center m-x-1 fl-1",
+						placeholder: "Enter teacher id...",
+						className: "username__input",
+						formGroupClassName: "form-group u-x-center fl-1",
 						formErrorClassName: "form__error--popup",
 						autoFocus: true,
 					})}
 				</div>
-				<div className="col-1-of-4 u-flex-center m-x-0">
-					{renderSubmitButton(
-						"Send",
-						"btn btn--blue u-flex-center fl-8"
-					)}
+				<div className="col u-x-center m-x-0">
+					{renderSubmitButton({
+						render: (
+							<>
+								<Icon name="send" size="15" />
+								<span>Send</span>
+							</>
+						),
+						className: "btn btn-primary btn-icon btn-round fl-1",
+					})}
 				</div>
 			</div>
 		</form>
@@ -67,66 +73,3 @@ const SendRequest = () => {
 };
 
 export default SendRequest;
-
-// class SendRequest extends Form {
-// 	static contextType = RequestContext;
-
-// 	state = {
-// 		data: { teacherUsername: "" },
-// 		errors: {},
-// 		requiresValidation: true,
-// 	};
-// 	componentDidMount() {
-// 		console.log(this.context);
-// 	}
-
-// 	schema = {
-// 		teacherUsername: Joi.string()
-// 			.min(3)
-// 			.max(255)
-// 			.email()
-// 			.required()
-// 			.label("Teacher Username"),
-// 	};
-
-// 	doSubmit = async () => {
-// 		const { addRequest } = this.context;
-// 		try {
-// 			await addRequest(this.state.data);
-// 			toast.success("Successfully Sent Request to Your Teacher");
-// 		} catch (error) {
-// 			if (error.response && error.response.status === 400) {
-// 				const errors = { ...this.state.errors };
-// 				errors.teacherUsername = error.response.data;
-// 				this.setState({ errors });
-// 			}
-// 		}
-// 	};
-
-// 	render() {
-// 		return (
-// 			<form className="form" onSubmit={this.handleSubmit}>
-// 				<div className="row p-y-1 b-b-1">
-// 					<div className="col-3-of-4 u-flex-center">
-// 						{this.renderTextInput({
-// 							name: "teacherUsername",
-// 							placeholder: "Enter teacher id.......",
-// 							formGroupClassName:
-// 								"form-group u-flex-center m-x-1 fl-1",
-// 							formErrorClassName: "form__error--popup",
-// 							autoFocus: true,
-// 						})}
-// 					</div>
-// 					<div className="col-1-of-4 u-flex-center m-x-0">
-// 						{this.renderSubmitButton(
-// 							"Send",
-// 							"btn btn--blue u-flex-center fl-8"
-// 						)}
-// 					</div>
-// 				</div>
-// 			</form>
-// 		);
-// 	}
-// }
-
-// export default SendRequest;

@@ -13,7 +13,7 @@ const RequestsTable = ({ selectedStatus }) => {
 	const columns = [
 		{
 			label: "User Id",
-			path: getIdPath(),
+			path: getUserIdPath(),
 		},
 		{
 			key: "time",
@@ -26,11 +26,12 @@ const RequestsTable = ({ selectedStatus }) => {
 		},
 		{
 			key: "accepted",
-			render: user.type === userTypes.teacher,
+			condition: user.type === userTypes.teacher,
 			content: (request) =>
 				request.status === "pending" && (
 					<button
 						value="accepted"
+						className="btn btn-primary btn-small"
 						onClick={(e) =>
 							handleStatusUpdate(request, e.currentTarget.value)
 						}
@@ -41,11 +42,12 @@ const RequestsTable = ({ selectedStatus }) => {
 		},
 		{
 			key: "rejected",
-			render: user && user.type === userTypes.teacher,
+			condition: user && user.type === userTypes.teacher,
 			content: (request) =>
 				request.status === "pending" && (
 					<button
 						value="rejected"
+						className="btn btn-danger btn-small"
 						onClick={(e) =>
 							handleStatusUpdate(request, e.currentTarget.value)
 						}
@@ -65,7 +67,7 @@ const RequestsTable = ({ selectedStatus }) => {
 		}
 	};
 
-	function getIdPath() {
+	function getUserIdPath() {
 		if (user.type === userTypes.teacher) {
 			return "studentUsername";
 		} else if (user.type === userTypes.student) {

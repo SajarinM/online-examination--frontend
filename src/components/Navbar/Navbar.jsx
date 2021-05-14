@@ -53,42 +53,6 @@ const Navbar = () => {
 		},
 	];
 
-	// return (
-	// 	<nav className="navbar">
-	// 		<div className="navbar__icon-box">
-	// 			<NavLink className="navbar__icon" to="/">
-	// 				Logo
-	// 			</NavLink>
-	// 		</div>
-
-	// 		<div className="navbar-container">
-	// 			<ul className="navbar-nav">
-	// 				{navItems.map(
-	// 					(item) =>
-	// 						item.renderCondition && (
-	// 							<li
-	// 								className={
-	// 									item.align === "right"
-	// 										? "navbar-nav__item navbar-nav__right"
-	// 										: "navbar-nav__item"
-	// 								}
-	// 								key={item.to}
-	// 							>
-	// 								<NavLink
-	// 									activeClassName="navbar-nav__link--active"
-	// 									className="navbar-nav__link"
-	// 									to={item.to}
-	// 								>
-	// 									{item.label}
-	// 								</NavLink>
-	// 							</li>
-	// 						)
-	// 				)}
-	// 			</ul>
-	// 		</div>
-	// 	</nav>
-	// );
-
 	return (
 		<header className="header">
 			<img src={logo} alt="trillo logo" className="logo" />

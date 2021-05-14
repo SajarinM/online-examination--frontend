@@ -20,27 +20,31 @@ const Card = ({ title, details, buttons, isHoverEnabled }) => {
 				</ul>
 			</div>
 
-			<div className={`card__cta`}>
-				<div className="button__group">
-					{buttons &&
-						buttons.map(({ text, link, onClick, disabled }) => {
+			<div className="card__cta">
+				{buttons &&
+					buttons.map(
+						({
+							text,
+							icon,
+							className,
+							link,
+							onClick,
+							disabled,
+						}) => {
 							return (
-								<Link key={link} to={link ? link : null}>
-									<button
-										onClick={onClick}
-										className="btn btn--white card__btn"
-										style={{
-											width: "100%",
-											height: "100%",
-										}}
-										disabled={disabled}
-									>
-										{text}
-									</button>
+								<Link
+									key={link}
+									to={link ? link : null}
+									onClick={onClick}
+									className={`btn btn-small card__btn ${className}`}
+									disabled={disabled}
+								>
+									{icon && icon}
+									{text && text}
 								</Link>
 							);
-						})}
-				</div>
+						}
+					)}
 			</div>
 		</div>
 	);
