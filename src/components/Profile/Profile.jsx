@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { createRef, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "./../../contexts/userContext";
 import { ExamContext } from "./../../contexts/examContext";
@@ -7,12 +7,49 @@ import { RequestContext } from "./../../contexts/requestContext";
 import Icon from "./../common/Icon/Icon";
 import profile from "../../assets/icons/profile.svg";
 import "./Profile.scss";
+import Popup from "./../common/Popup/Popup";
+import useForm from "./../common/Form/useForm";
+import Joi from "joi-browser";
+import authService from "./../../services/authService";
+import { toast } from "react-toastify";
 
 const Profile = () => {
-	const user = useContext(UserContext);
+	const { user, friends } = useContext(UserContext);
 	const { exams } = useContext(ExamContext);
 	const { results } = useContext(ResultContext);
 	const { requests } = useContext(RequestContext);
+
+	const popup = createRef();
+	const [data, setData] = useState({ current: "", new: "" });
+	const [errors, setErrors] = useState({});
+
+	const { renderTextInput, renderSubmitButton, handleSubmit } = useForm({
+		data,
+		setData,
+		errors,
+		setErrors,
+		schema: {
+			current: Joi.string()
+				.min(5)
+				.max(255)
+				.required()
+				.label("Current password"),
+			new: Joi.string().min(5).max(255).required().label("New password"),
+		},
+		doSubmit: async () => {
+			try {
+				await authService.changePassword({
+					currentPassword: data.current,
+					newPassword: data.new,
+				});
+				toast.success("Password changed successfully");
+			} catch (error) {
+				if (error.response && error.response.status === 400)
+					toast.error(error.response.data);
+				else toast.error("Error changing password");
+			}
+		},
+	});
 
 	const cards = [
 		{
@@ -20,20 +57,20 @@ const Profile = () => {
 			smallText: "exams",
 			lgText: exams.length,
 			link: { text: "view exams", to: "/exams" },
-			icon: { name: "files-empty" },
+			icon: { name: "document-edit" },
 		},
 		{
 			bg: "bg-success",
 			smallText: "students",
-			lgText: user.friends.length,
+			lgText: friends.length,
 			link: { text: "manage students", to: "/students" },
-			icon: { name: "user-group" },
+			icon: { name: "graduation-cap" },
 			condition: user.isTeacher,
 		},
 		{
 			bg: "bg-success",
 			smallText: "teachers",
-			lgText: user.friends.length,
+			lgText: friends.length,
 			link: { text: "manage teachers", to: "/teachers" },
 			icon: { name: "group" },
 			condition: !user.isTeacher,
@@ -43,7 +80,7 @@ const Profile = () => {
 			smallText: "pending requests",
 			lgText: requests.filter((r) => r.status === "pending").length,
 			link: { text: "view requests", to: "/requests?status=pending" },
-			icon: { name: "envelope" },
+			icon: { name: "bubble" },
 			condition: user.isTeacher,
 		},
 
@@ -52,19 +89,24 @@ const Profile = () => {
 			smallText: "results",
 			lgText: results.length,
 			link: { text: "view results", to: "/results" },
-			icon: { name: "group" },
+			icon: { name: "line-chart" },
 		},
 	];
 
 	return (
 		<section className="profile">
 			<section className="actions">
-				<img src={profile} alt="profile" className="profile__img" />
+				{/* <img src={profile} alt="profile" className="profile__img" /> */}
 				<div className="profile__greet">
 					<p>Hello</p>
 					<h2>{user.name}</h2>
 				</div>
-				<button className="btn btn-outline-primary action-item ml-auto">
+				<button
+					onClick={() => {
+						popup.current.show();
+					}}
+					className="btn btn-outline-primary action-item ml-auto"
+				>
 					Change password
 				</button>
 			</section>
@@ -74,8 +116,37 @@ const Profile = () => {
 						c.condition === false ? null : <DashCard {...c} />
 					)}
 				</div>
-				<div className="profile__details bg-white br-4 fl-1"></div>
+				<div className="content-item profile__details fl-1">
+					<h1 className="bg-primary">about</h1>
+					<ul>
+						<li>
+							<p>name</p>
+							<p>: {user.name}</p>
+						</li>
+						<li>
+							<p>type</p>
+							<p>: {user.type}</p>
+						</li>
+						<li>
+							<p>username</p>
+							<p>: {user.username}</p>
+						</li>
+					</ul>
+				</div>
 			</section>
+			<Popup ref={popup}>
+				<form onSubmit={handleSubmit}>
+					{renderTextInput({
+						name: "current",
+						label: "Current Password",
+					})}
+					{renderTextInput({
+						name: "new",
+						label: "New Password",
+					})}
+					{renderSubmitButton({})}
+				</form>
+			</Popup>
 		</section>
 	);
 };

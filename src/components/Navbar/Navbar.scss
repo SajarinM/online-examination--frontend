@@ -15,8 +15,8 @@
 }
 
 .logo {
-	height: 3.5rem;
-	margin-left: 2rem;
+	height: 4rem;
+	margin-left: 1.5rem;
 }
 
 .nav {
@@ -24,14 +24,13 @@
 	font-weight: var(--nav-font-weight);
 	height: calc(var(--nav-height) - 10px);
 	justify-self: center;
-	flex-basis: 40%;
-
+	flex: 1 0 40%;
 	@include flex-center;
 
 	&__item {
 		@include flex-center;
 
-		flex-basis: 33.33%;
+		flex: 0 0 17rem;
 		position: relative;
 		height: 100%;
 		cursor: pointer;

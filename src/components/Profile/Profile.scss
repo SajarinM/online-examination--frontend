@@ -5,6 +5,7 @@
 }
 
 .profile {
+	position: relative;
 	&__greet {
 		h2 {
 			font-size: 1.7rem;
@@ -13,6 +14,7 @@
 			letter-spacing: 3px;
 			text-transform: capitalize;
 		}
+		margin-left: 2rem;
 	}
 
 	&__img {
@@ -32,6 +34,7 @@
 		color: white;
 		font-weight: 300;
 		font-size: 1.6rem;
+		box-shadow: var(--shadow-light);
 
 		&:not(:last-child) {
 			margin-right: 1.5rem;
@@ -80,6 +83,48 @@
 				margin-left: auto;
 				width: 1.6rem;
 				height: 1.6rem;
+			}
+		}
+	}
+
+	&__details {
+		// width: 30%;
+		padding: 0rem !important;
+
+		ul {
+			padding: 2rem;
+			list-style: none;
+			margin: 0 auto;
+		}
+
+		h1 {
+			padding: 1rem 2.5rem;
+			// text-align: center;
+			border-radius: 5px 5px 0px 0px;
+			color: white;
+			font-weight: 300;
+			font-size: 2rem;
+			text-transform: capitalize;
+			letter-spacing: 2px;
+		}
+
+		li {
+			padding: 1rem;
+			display: flex;
+			font-size: 1.5rem;
+
+			p:first-child {
+				flex-basis: 40%;
+				font-weight: bold;
+				text-transform: capitalize;
+			}
+
+			p:last-child {
+				flex: 1;
+			}
+
+			&:not(:last-child) {
+				border-bottom: var(--card-detail-item-border);
 			}
 		}
 	}

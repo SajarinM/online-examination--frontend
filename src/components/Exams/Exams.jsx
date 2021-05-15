@@ -9,7 +9,7 @@ import ExamsList from "./ExamsList";
 import queryString from "query-string";
 
 const Exams = () => {
-	const user = useContext(UserContext);
+	const {user} = useContext(UserContext);
 	const { exams } = useContext(ExamContext);
 	const query = queryString.parse(useLocation().search);
 

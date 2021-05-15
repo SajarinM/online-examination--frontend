@@ -26,7 +26,6 @@ const SignupForm = () => {
 		errors,
 		setErrors,
 		doSubmit,
-		requiresValidation: true,
 		schema: {
 			email: Joi.string().min(3).max(255).email().required(),
 			name: Joi.string().min(3).max(50).required(),
@@ -126,8 +125,12 @@ const SignupForm = () => {
 				</div>
 
 				<div className="form__button-group">
-					{renderSubmitButton("Submit", "btn btn--green")}
-					{renderResetButton("Reset", "btn btn--green")}
+					{renderSubmitButton({
+						className: "welcome__btn welcome__btn--green",
+					})}
+					{renderResetButton({
+						className: "welcome__btn welcome__btn--green",
+					})}
 				</div>
 			</form>
 		</StartupForm>

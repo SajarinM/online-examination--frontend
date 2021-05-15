@@ -5,13 +5,17 @@
 	border-collapse: collapse;
 
 	th {
-		border-bottom: 2px solid #dee2e6;
+		border-bottom: 3px solid #dee2e6;
 		text-align: -webkit-match-parent;
+		padding: 0.75rem;
+		padding-bottom: 1rem;
 	}
 
 	th,
 	td {
 		vertical-align: bottom;
+	}
+	td {
 		padding: 0.75rem;
 		border-top: 1px solid #dee2e6;
 	}

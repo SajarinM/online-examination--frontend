@@ -1,29 +1,41 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "./../contexts/userContext";
-import { userService } from "../services/userService";
+import { ExamContext } from "./../contexts/examContext";
 import Table from "./common/Table/Table";
-import { toast } from "react-toastify";
 
 const Friends = () => {
-	const { isTeacher } = useContext(UserContext);
-	const [friends, setFriends] = useState([]);
-
-	useEffect(() => {
-		async function run() {
-			try {
-				const { data } = await userService.getFriends();
-				console.log(data);
-				setFriends(data);
-			} catch (error) {}
-		}
-		run();
-	}, []);
+	const {
+		user: { isTeacher },
+		friends,
+		removeFriend,
+	} = useContext(UserContext);
+	const { exams } = useContext(ExamContext);
 
 	const columns = [
 		{
 			label: "Name",
 			path: "name",
+		},
+		{
+			label: "No of exams",
+			condition: !isTeacher,
+			key: "No of exams",
+			content: (item) =>
+				exams.filter((e) => e.author._id === item._id).length,
+		},
+		{
+			label: "Results Published",
+			condition: !isTeacher,
+			key: "No of results",
+			content: (item) => exams.filter((e) => e.isResultPublished).length,
+		},
+		{
+			label: "Exams Attended",
+			condition: isTeacher,
+			key: "No of exams attended",
+			content: (item) =>
+				exams.filter((e) => e.participants.includes(item._id)).length,
 		},
 		{
 			key: "view exams",
@@ -39,11 +51,12 @@ const Friends = () => {
 		},
 		{
 			key: "view results",
-			condition: isTeacher,
 			content: (item) => (
 				<Link
 					className="btn btn-primary btn-small"
-					to={`/results?student=${item._id}`}
+					to={`/results?${isTeacher ? "student" : "teacher"}=${
+						item._id
+					}`}
 				>
 					View results
 				</Link>
@@ -54,22 +67,7 @@ const Friends = () => {
 			content: (item) => (
 				<button
 					onClick={async () => {
-						const originalFriends = [...friends];
-						try {
-							await userService.unEnroll(item.username);
-							toast.success(
-								`${
-									isTeacher
-										? "Removed student"
-										: "Unenrolled from teacher"
-								} ${item.name}`
-							);
-							setFriends(
-								[...friends].filter((e) => e._id !== item._id)
-							);
-						} catch (error) {
-							setFriends(originalFriends);
-						}
+						removeFriend(item);
 					}}
 					className="btn btn-danger btn-small"
 				>
@@ -80,12 +78,8 @@ const Friends = () => {
 	];
 	return (
 		<section className="content mh-100 d-flex-c">
-			<div className="bg-white br-4 fl-1">
-				<Table
-					className="bg-white br-4 fl-1"
-					columns={columns}
-					data={friends}
-				/>
+			<div className="content-item fl-1">
+				<Table columns={columns} data={friends} serialNo />
 			</div>
 		</section>
 	);

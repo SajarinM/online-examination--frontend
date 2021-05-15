@@ -7,7 +7,7 @@ import useForm from "../common/Form/useForm";
 import Icon from "../common/Icon/Icon";
 
 const SendRequest = () => {
-	const user = useContext(UserContext);
+	const { user } = useContext(UserContext);
 	const { addRequest } = useContext(RequestContext);
 
 	const [data, setData] = useState({ teacherUsername: "" });
@@ -46,7 +46,7 @@ const SendRequest = () => {
 	return (
 		<form className="form fl-1" onSubmit={handleSubmit}>
 			<div className="row">
-				<div className="col-3-of-4 u-x-center">
+				<div className="col-5-of-6 u-x-center">
 					{renderTextInput({
 						name: "teacherUsername",
 						placeholder: "Enter teacher id...",
@@ -61,7 +61,7 @@ const SendRequest = () => {
 						render: (
 							<>
 								<Icon name="send" size="15" />
-								<span>Send</span>
+								<span>Send Request</span>
 							</>
 						),
 						className: "btn btn-primary btn-icon btn-round fl-1",

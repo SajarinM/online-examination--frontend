@@ -3,7 +3,7 @@ import "./Table.scss";
 import _ from "lodash";
 import string from "../../../utilities/string";
 
-const Table = ({ columns, data, serialNo, className }) => {
+const Table = ({ columns, data, serialNo, className, label = "data" }) => {
 	function createKey(item, column) {
 		return item._id + (column.path || column.key);
 	}
@@ -23,6 +23,9 @@ const Table = ({ columns, data, serialNo, className }) => {
 		column.condition =
 			column.condition === undefined ? true : column.condition;
 	});
+
+	if (!data.length)
+		return <div className="u-x-center">No {label} to show</div>;
 
 	return (
 		<table className={`table ${className}`}>

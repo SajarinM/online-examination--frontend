@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Redirect, useLocation } from "react-router-dom";
 import Joi from "joi-browser";
-import authService from "../../services/authService";
-import useForm from "../common/Form/useForm";
-import StartupForm from "../common/StartupForm/StartupForm";
+import authService from "./../services/authService";
+import useForm from "./common/Form/useForm";
+import StartupForm from "./common/StartupForm/StartupForm";
 
 const LoginForm = () => {
 	const [data, setData] = useState({ username: "", password: "" });
@@ -85,8 +85,12 @@ const LoginForm = () => {
 					type: "password",
 				})}
 				<div className="form__button-group">
-					{renderSubmitButton("Submit", "btn btn--green")}
-					{renderResetButton("Reset", "btn btn--green")}
+					{renderSubmitButton({
+						className: "welcome__btn welcome__btn--green",
+					})}
+					{renderResetButton({
+						className: "welcome__btn welcome__btn--green",
+					})}
 				</div>
 			</form>
 		</StartupForm>

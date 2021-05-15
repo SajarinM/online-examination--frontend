@@ -1,45 +1,13 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-// import { userTypes } from "../../services/authService";
 import { UserContext } from "../../contexts/userContext";
-import Icon from "../common/Icon/Icon";
 import logo from "../../assets/images/logo.png";
 import "./Navbar.scss";
 
 const Navbar = () => {
-	const user = useContext(UserContext);
+	const { user } = useContext(UserContext);
 
 	const navItems = [
-		{
-			label: "Exams",
-			to: "/exams",
-			renderCondition: user,
-			icon: { name: "edit-pencil" },
-		},
-		// {
-		// 	label: "Students",
-		// 	to: "/students",
-		// 	renderCondition: user && user.type === userTypes.teacher,
-		// 	icon: { name: "location-restroom" },
-		// },
-		// {
-		// 	label: "Teachers",
-		// 	to: "/teachers",
-		// 	renderCondition: user && user.type === userTypes.student,
-		// 	icon: { name: "location-restroom" },
-		// },
-		{
-			label: "My Profile",
-			to: "/account",
-			renderCondition: user,
-			icon: { name: "user-solid-circle" },
-		},
-		{
-			label: "Logout",
-			to: "/logout",
-			renderCondition: user,
-			icon: { name: "stand-by" },
-		},
 		{
 			label: "Login",
 			to: "/login",
@@ -55,9 +23,8 @@ const Navbar = () => {
 
 	return (
 		<header className="header">
-			<img src={logo} alt="trillo logo" className="logo" />
-
 			<nav className="nav">
+				<img src={logo} alt="trillo logo" className="logo" />
 				{navItems.map((item) => {
 					const { to, renderCondition, align, label, icon } = item;
 					return (
@@ -71,12 +38,6 @@ const Navbar = () => {
 								to={to}
 							>
 								<div className="nav__item-content">
-									{icon && (
-										<Icon
-											className="nav__icon"
-											name={icon.name}
-										/>
-									)}
 									<p>{label}</p>
 								</div>
 							</NavLink>
@@ -84,27 +45,6 @@ const Navbar = () => {
 					);
 				})}
 			</nav>
-
-			{/* <div class="user-nav__icon-box">
-					<svg class="user-nav__icon">
-						<use xlink:href="img/sprite.svg#icon-bookmark"></use>
-					</svg>
-					<span class="user-nav__notification">7</span>
-				</div>
-				<div class="user-nav__icon-box">
-					<svg class="user-nav__icon">
-						<use xlink:href="img/sprite.svg#icon-chat"></use>
-					</svg>
-					<span class="user-nav__notification">13</span>
-				</div>
-				<div class="user-nav__user">
-					<img
-						src="img/user.jpg"
-						alt="User photo"
-						class="user-nav__user-photo"
-					/>
-					<span class="user-nav__user-name">Jonas</span>
-				</div> */}
 		</header>
 	);
 };

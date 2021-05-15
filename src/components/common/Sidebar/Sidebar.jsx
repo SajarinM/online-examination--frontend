@@ -3,22 +3,26 @@ import { NavLink } from "react-router-dom";
 import { UserContext } from "../../../contexts/userContext";
 import Icon from "../Icon/Icon";
 import logo from "../../../assets/images/logo.png";
+import profile from "../../../assets/icons/profile.svg";
+
 import "./Sidebar.scss";
+import { ExamContext } from "./../../../contexts/examContext";
 
 const Sidebar = () => {
-	const user = useContext(UserContext);
+	const { user } = useContext(UserContext);
+	const { writeMode } = useContext(ExamContext);
 
 	const navlinks = [
 		{
 			label: "Exams",
 			route: "/exams",
-			icon: { name: "files-empty" },
+			icon: { name: "document-edit" },
 		},
 		{
 			label: "Students",
 			route: "/students",
 			renderCondition: Boolean(user && user.isTeacher),
-			icon: { name: "user-group" },
+			icon: { name: "graduation-cap" },
 		},
 		{
 			label: "Teachers",
@@ -29,7 +33,7 @@ const Sidebar = () => {
 		{
 			label: "Requests",
 			route: "/requests",
-			icon: { name: "envelope" },
+			icon: { name: "bubble" },
 		},
 		{
 			label: "Profile",
@@ -44,13 +48,26 @@ const Sidebar = () => {
 	];
 
 	return (
-		<div className="sidebar">
-			<img src={logo} alt="trillo logo" className="logo" />
+		<div
+			className={`sidebar ${!user || writeMode ? "sidebar-hidden" : ""}`}
+		>
+			<div className="logo-box">
+				<img src={logo} alt="trillo logo" className="logo" />
+				<div className="text-box">
+					<p>online </p>
+					<p>examination</p>
+				</div>
+			</div>
+			<div className="sidebar__profile">
+				<img src={profile} alt="profile" className="profile__img" />
+				<div className="profile__greet">
+					<h2>{user && user.name}</h2>
+				</div>
+			</div>
 			<ul className="sidebar-nav">
 				{navlinks.map((navlink) => {
 					const { route, label, icon, renderCondition } = navlink;
 					if (renderCondition === false) return null;
-					console.log(icon);
 					return (
 						<li key={route} className="sidebar-nav__item">
 							<NavLink

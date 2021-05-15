@@ -1,5 +1,5 @@
 import React, { createRef, useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { ExamContext } from "../../contexts/examContext";
 import useForm from "../common/Form/useForm";
 import Icon from "../common/Icon/Icon";
@@ -8,6 +8,7 @@ import Table from "../common/Table/Table";
 import QuestionForm from "../QuestionForm/QuestionForm";
 import date from "./../../utilities/date";
 import BackButton from "./../common/BackButton";
+import Joi from "joi-browser";
 
 const initialData = {
 	name: "",
@@ -17,11 +18,14 @@ const initialData = {
 
 const ExamForm = () => {
 	const { exams, saveExam, getExam } = useContext(ExamContext);
+
 	const [data, setData] = useState(initialData);
 	const [errors, setErrors] = useState({});
 	const [questions, setQuestions] = useState([]);
 	const [selectedQuestion, setSelectedQuestion] = useState(null);
+
 	const { id } = useParams();
+	const history = useHistory();
 	const questionPopup = createRef();
 
 	const { handleSubmit, renderTextInput, renderSubmitButton } = useForm({
@@ -31,7 +35,9 @@ const ExamForm = () => {
 		setErrors,
 		initialData,
 		doSubmit,
-		requiresValidation: false,
+		schema: {
+			name: Joi.string().required(),
+		},
 	});
 
 	const columns = [
@@ -106,10 +112,13 @@ const ExamForm = () => {
 	}, [exams, id, getExam]);
 
 	function doSubmit() {
+		if (!questions.length)
+			return setErrors({ name: "Exam must have atleast one question" });
 		saveExam({
 			...data,
 			questions,
 		});
+		history.goBack();
 	}
 
 	function handleAddQuestion(question) {
@@ -128,7 +137,7 @@ const ExamForm = () => {
 	}
 
 	return (
-		<>
+		<div className="p-rel">
 			<form className="form" onSubmit={handleSubmit}>
 				<section className="actions">
 					<BackButton className="btn btn-outline-primary action-item" />
@@ -156,7 +165,7 @@ const ExamForm = () => {
 							min: data.startingTime,
 						})}
 						<div
-							className="btn btn-outline-success btn-icon "
+							className="btn btn-outline-success btn-icon mb-2"
 							onClick={() => {
 								questionPopup.current &&
 									questionPopup.current.show();
@@ -178,7 +187,7 @@ const ExamForm = () => {
 					addQuestion={handleAddQuestion}
 				/>
 			</Popup>
-		</>
+		</div>
 	);
 };
 

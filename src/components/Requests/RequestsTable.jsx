@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import date from "../../utilities/date";
 
 const RequestsTable = ({ selectedStatus }) => {
-	const user = useContext(UserContext);
+	const { user } = useContext(UserContext);
 	const { requests, updateRequest } = useContext(RequestContext);
 
 	const columns = [
@@ -76,25 +76,17 @@ const RequestsTable = ({ selectedStatus }) => {
 	}
 
 	const getFiteredRequests = () => {
-		const filteredRequests = requests.filter((request) => {
+		return requests.filter((request) => {
 			return selectedStatus.value
 				? request.status === selectedStatus.value
 				: true;
 		});
-		return { filteredRequests, count: filteredRequests.length };
 	};
 
-	const { filteredRequests, count } = getFiteredRequests();
+	const filteredRequests = getFiteredRequests();
 
 	return (
-		<React.Fragment>
-			{count !== 0 && <Table columns={columns} data={filteredRequests} />}
-			{count === 0 && (
-				<center>
-					<p>No requests found</p>
-				</center>
-			)}
-		</React.Fragment>
+		<Table columns={columns} data={filteredRequests} label={"Requests"} />
 	);
 };
 

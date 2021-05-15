@@ -33,6 +33,10 @@ export function logout() {
 	localStorage.removeItem(tokenKey);
 }
 
+export function changePassword(data) {
+	return http.put(apiEndpoint, data);
+}
+
 export const userTypes = {
 	student: "student",
 	teacher: "teacher",
@@ -44,6 +48,7 @@ const authService = {
 	getCurrentUser,
 	loginWithJwt,
 	getJwt,
+	changePassword,
 	userTypes,
 };
 export default authService;

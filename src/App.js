@@ -1,9 +1,8 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-// import ProtectedRoute from "./components/common/ProtectedRoute";
-// import Navbar from "./components/Navbar/Navbar";
-import LoginForm from "./components/LoginForm/LoginForm";
+import { toast } from "react-toastify";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import Exams from "./components/Exams/Exams";
 import Logout from "./components/Logout";
@@ -14,7 +13,7 @@ import RequestProvider from "./contexts/requestContext";
 import QuestionPaper from "./components/QuestionPaper/QuestionPaper";
 import Profile from "./components/Profile/Profile";
 import Sidebar from "./components/common/Sidebar/Sidebar";
-import ExamForm from "./components/ExamForm/ExamForm";
+import ExamForm from "./components/Exams/ExamForm";
 import Requests from "./components/Requests/Requests";
 import Results from "./components/Results/Results";
 import Answers from "./components/Results/Answers";
@@ -27,30 +26,35 @@ const App = () => {
 			<ExamProvider>
 				<ResultProvider>
 					<RequestProvider>
-						<ToastContainer position="bottom-right" />
+						{/* <ToastContainer position="bottom-right" /> */}
+						{toast.configure({ position: "bottom-right" })}
+
 						<div className="container">
 							<Sidebar />
 							<main>
 								<Switch>
-									<Route
+									<ProtectedRoute
 										exact
 										path="/exams/write/:id"
 										component={QuestionPaper}
 									/>
-									<Route
+									<ProtectedRoute
 										path="/results/:resultId"
 										component={Answers}
 									/>
-									<Route
+									<ProtectedRoute
 										path="/results"
 										component={Results}
 									/>
-									<Route
+									<ProtectedRoute
 										path="/exams/:id"
 										component={ExamForm}
 									/>
-									<Route path="/exams" component={Exams} />
-									<Route
+									<ProtectedRoute
+										path="/exams"
+										component={Exams}
+									/>
+									<ProtectedRoute
 										path="/requests"
 										component={Requests}
 									/>
@@ -58,20 +62,23 @@ const App = () => {
 										path="/login"
 										component={LoginForm}
 									/>
-									<Route path="/logout" component={Logout} />
+									<ProtectedRoute
+										path="/logout"
+										component={Logout}
+									/>
 									<Route
 										path="/signup"
 										component={SignupForm}
 									/>
-									<Route
+									<ProtectedRoute
 										path="/profile"
 										component={Profile}
 									/>
-									<Route
+									<ProtectedRoute
 										path="/teachers"
 										component={Friends}
 									/>
-									<Route
+									<ProtectedRoute
 										path="/students"
 										component={Friends}
 									/>

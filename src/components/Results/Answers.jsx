@@ -7,7 +7,9 @@ import TextButton from "../common/TextButton/TextButton";
 import BackButton from "../common/BackButton";
 
 const Answers = () => {
-	const { isTeacher } = useContext(UserContext);
+	const {
+		user: { isTeacher },
+	} = useContext(UserContext);
 	const { getResult, editResult } = useContext(ResultContext);
 
 	const [data, setData] = useState([]);
@@ -102,11 +104,9 @@ const Answers = () => {
 				)}
 			</section>
 			<section className="content">
-				<Table
-					className="bg-white br-4 fl-1"
-					columns={columns}
-					data={data}
-				/>
+				<div className="content-item fl-1">
+					<Table columns={columns} data={data} label={"Answers"} />
+				</div>
 			</section>
 		</Fragment>
 	);

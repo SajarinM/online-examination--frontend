@@ -7,7 +7,9 @@ import date from "./../../utilities/date";
 import Icon from "./../common/Icon/Icon";
 
 const ExamsList = ({ exams }) => {
-	const { isTeacher } = useContext(UserContext);
+	const {
+		user: { isTeacher },
+	} = useContext(UserContext);
 	const { deleteExam } = useContext(ExamContext);
 
 	function mapToCardModel(exam) {
@@ -56,7 +58,7 @@ const ExamsList = ({ exams }) => {
 		if (isTeacher) {
 			card.buttons.splice(1, 0, {
 				icon: <Icon name="bin" size="18" />,
-				link: `/exams/all`,
+				link: `/exams`,
 				disabled: isTeacher ? false : !isOnTime,
 				className: "btn-danger btn-round",
 				onClick: () => {

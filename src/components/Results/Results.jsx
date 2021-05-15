@@ -68,12 +68,14 @@ const Results = () => {
 				)}
 			</section>
 			<section className="content">
-				<Table
-					className="bg-white br-4 fl-1"
-					columns={columns}
-					data={populateData()}
-					serialNo="No"
-				/>
+				<div className="content-item fl-1">
+					<Table
+						columns={columns}
+						data={populateData()}
+						serialNo="No"
+						label="Results"
+					/>
+				</div>
 			</section>
 		</Fragment>
 	);

@@ -10,6 +10,8 @@ ExamContext.displayName = "ExamContext";
 const ExamProvider = ({ children }) => {
 	const [exams, setExams] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [writeMode, setWriteMode] = useState(false);
+
 	const user = useContext(UserContext);
 
 	useEffect(() => {
@@ -84,6 +86,8 @@ const ExamProvider = ({ children }) => {
 				deleteExam,
 				getExam,
 				publishResults,
+				writeMode,
+				setWriteMode,
 			}}
 		>
 			{children}

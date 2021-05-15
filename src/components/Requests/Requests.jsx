@@ -7,41 +7,50 @@ import "./Requests.scss";
 import { useLocation } from "react-router";
 import queryString from "query-string";
 
-const Requests = () => {
-	const user = useContext(UserContext);
-	const query = queryString.parse(useLocation().search);
+const navItems = [
+	{
+		label: "All",
+	},
+	{
+		label: "Pending",
+		value: "pending",
+	},
+	{
+		label: "Accepted",
+		value: "accepted",
+	},
+	{
+		label: "Rejected",
+		value: "rejected",
+	},
+];
 
-	const navItems = [
-		{
-			label: "All",
-		},
-		{
-			label: "Pending",
-			value: "pending",
-		},
-		{
-			label: "Accepted",
-			value: "accepted",
-		},
-		{
-			label: "Rejected",
-			value: "rejected",
-		},
-	];
+const Requests = () => {
+	const {
+		user: { isTeacher },
+	} = useContext(UserContext);
+	const { status } = queryString.parse(useLocation().search);
 
 	const [selectedStatus, setSelectedStatus] = useState(navItems[0]);
 
 	useEffect(() => {
-		if (query.status) setSelectedStatus(navItems[1]);
-	}, []);
+		if (status)
+			setSelectedStatus(
+				navItems.find((i) => i.value === status) || navItems[0]
+			);
+	}, [status]);
 
 	return (
 		<>
-			<section className="actions">
-				{user.type === "student" && <SendRequest />}
-			</section>
-			<section className="content d-flex-c">
-				<div className="bg-white br-4 fl-1">
+			{!isTeacher && (
+				<section className="actions">
+					<SendRequest />
+				</section>
+			)}
+			<section
+				className={`content d-flex-c ${isTeacher ? "mh-100" : ""}`}
+			>
+				<div className="content-item fl-1">
 					<ListGroup
 						items={navItems}
 						selectedItem={selectedStatus}

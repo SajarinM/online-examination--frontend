@@ -16,8 +16,8 @@ export function getFriends() {
 	return http.get(apiEndpoint);
 }
 
-export function unEnroll(friendUsername) {
-	return http.post(apiEndpoint + "/unenroll", { friendUsername });
+export function unEnroll(friendId) {
+	return http.post(apiEndpoint + "/unenroll", { friendId });
 }
 
 export const userService = {

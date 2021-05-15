@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import React, { createRef, useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router";
 import { DropdownList } from "react-widgets";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import Fullscreen from "react-fullscreen-crossbrowser";
+import { ExamContext } from "./../../contexts/examContext";
 import examService from "./../../services/examService";
 import Icon from "../common/Icon/Icon";
+import Popup from "../common/Popup/Popup";
 import "./QuestionPaper.scss";
 
 const QuestionPaper = () => {
@@ -14,6 +16,12 @@ const QuestionPaper = () => {
 	const [answers, setAnswers] = useState([]);
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [isFullscreen, setisFullscreen] = useState(false);
+
+	const history = useHistory();
+
+	const popup = createRef();
+
+	const { setWriteMode } = useContext(ExamContext);
 
 	useEffect(() => {
 		async function poulateQuestionPaper() {
@@ -32,8 +40,13 @@ const QuestionPaper = () => {
 				}
 			}
 		}
+		setWriteMode(true);
 		poulateQuestionPaper();
-	}, [examId]);
+
+		return () => {
+			setWriteMode(false);
+		};
+	}, [examId, setWriteMode]);
 
 	function handleAnswerChange(valueonselect) {
 		const newAnswers = [...answers];
@@ -50,11 +63,14 @@ const QuestionPaper = () => {
 			const { data } = await examService.saveAnswers(examId, answers);
 			toast.success("Successfully saved current data...", {
 				autoClose: 3000,
+				containerId: "A",
+				toastId: "save exam answers",
 			});
 			return data;
 		} catch (error) {
 			toast.error("Error saving data. Try again...", {
 				autoClose: 3000,
+				containerId: "A",
 			});
 		}
 	}
@@ -65,6 +81,11 @@ const QuestionPaper = () => {
 
 	return (
 		<Fullscreen enabled={isFullscreen}>
+			<ToastContainer
+				position="bottom-right"
+				enableMultiContainer
+				containerId={"A"}
+			/>
 			<section className="question-container u-prevent-copy">
 				<nav className="question-container__nav-top">
 					<div className="question__nav-item question__info">
@@ -74,9 +95,7 @@ const QuestionPaper = () => {
 					<button
 						title="Save current state"
 						className="question__nav-item question__nav-item--save"
-						onClick={() => {
-							saveAnswers();
-						}}
+						onClick={saveAnswers}
 					>
 						<Icon name="save" color="#FFFFFF" />
 					</button>
@@ -84,7 +103,9 @@ const QuestionPaper = () => {
 					<button
 						title="Submit"
 						className="question__nav-item question__nav-item--submit"
-						onClick={() => {}}
+						onClick={() => {
+							popup.current.show();
+						}}
 					>
 						submit
 					</button>
@@ -183,6 +204,26 @@ const QuestionPaper = () => {
 						</button>
 					)}
 				</nav>
+				<Popup ref={popup}>
+					<p>Are you sure want to submit ?</p>
+					<button
+						onClick={() => {
+							popup.current.close();
+						}}
+						className="btn btn-danger"
+					>
+						Cancel
+					</button>
+					<button
+						onClick={() => {
+							saveAnswers();
+							history.goBack();
+						}}
+						className="btn btn-success"
+					>
+						Confirm
+					</button>
+				</Popup>
 			</section>
 		</Fullscreen>
 	);
