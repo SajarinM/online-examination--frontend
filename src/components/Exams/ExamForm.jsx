@@ -117,7 +117,7 @@ const ExamForm = () => {
 			...data,
 			questions,
 		});
-		history.goBack();
+		history.push("/exams");
 	}
 
 	function handleAddQuestion(question) {
