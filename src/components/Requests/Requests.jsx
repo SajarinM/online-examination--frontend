@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import RequestsTable from "./RequestsTable";
-import ListGroup from "../common/ListGroup";
-import { UserContext } from "./../../contexts/userContext";
-import SendRequest from "./SendRequest";
-import "./Requests.scss";
 import { useLocation } from "react-router";
 import queryString from "query-string";
+import { UserContext } from "./../../contexts/userContext";
+import ListGroup from "../common/ListGroup";
+import SendRequest from "./SendRequest";
+import RequestsTable from "./RequestsTable";
+import "./Requests.scss";
 
 const navItems = [
 	{

@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { UserContext } from "./userContext";
 import examService from "../services/examService";
 import date from "../utilities/date";
-import { UserContext } from "./userContext";
 
 export const ExamContext = createContext();
 ExamContext.displayName = "ExamContext";
@@ -12,7 +12,7 @@ const ExamProvider = ({ children }) => {
 	const [loading, setLoading] = useState(true);
 	const [writeMode, setWriteMode] = useState(false);
 
-	const user = useContext(UserContext);
+	const { user } = useContext(UserContext);
 
 	useEffect(() => {
 		async function getExams() {

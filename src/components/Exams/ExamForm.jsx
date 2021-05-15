@@ -1,14 +1,13 @@
 import React, { createRef, useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { ExamContext } from "../../contexts/examContext";
-import useForm from "../common/Form/useForm";
 import Icon from "../common/Icon/Icon";
-import Popup from "../common/Popup/Popup";
 import Table from "../common/Table/Table";
-import QuestionForm from "../QuestionForm/QuestionForm";
-import date from "./../../utilities/date";
+import Popup from "../common/Popup/Popup";
+import useForm from "../common/Form/useForm";
 import BackButton from "./../common/BackButton";
-import Joi from "joi-browser";
+import QuestionForm from "../QuestionForm";
+import date from "./../../utilities/date";
 
 const initialData = {
 	name: "",
@@ -35,9 +34,7 @@ const ExamForm = () => {
 		setErrors,
 		initialData,
 		doSubmit,
-		schema: {
-			name: Joi.string().required(),
-		},
+		requiresValidation: false,
 	});
 
 	const columns = [
@@ -112,6 +109,8 @@ const ExamForm = () => {
 	}, [exams, id, getExam]);
 
 	function doSubmit() {
+		if (!data.name)
+			return setErrors({ name: "name is not allowed to be empty" });
 		if (!questions.length)
 			return setErrors({ name: "Exam must have atleast one question" });
 		saveExam({

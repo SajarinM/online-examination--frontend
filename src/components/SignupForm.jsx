@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Joi from "joi-browser";
-import userService from "../services/userService";
-import authService from "../services/authService";
 import useForm from "./common/Form/useForm";
 import StartupForm from "./common/StartupForm/StartupForm";
+import userService from "../services/userService";
+import authService from "../services/authService";
 
 const SignupForm = () => {
 	const [data, setData] = useState({

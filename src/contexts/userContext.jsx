@@ -17,8 +17,8 @@ const UserProvider = ({ children }) => {
 				setFriends(data);
 			} catch (error) {}
 		}
-		run();
-	}, []);
+		if (user) run();
+	}, [user]);
 
 	async function removeFriend(friend) {
 		const originalFriends = [...friends];

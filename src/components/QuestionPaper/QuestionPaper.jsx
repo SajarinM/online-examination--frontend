@@ -1,12 +1,12 @@
 import React, { createRef, useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { DropdownList } from "react-widgets";
-import { toast, ToastContainer } from "react-toastify";
 import Fullscreen from "react-fullscreen-crossbrowser";
+import { toast, ToastContainer } from "react-toastify";
 import { ExamContext } from "./../../contexts/examContext";
-import examService from "./../../services/examService";
 import Icon from "../common/Icon/Icon";
 import Popup from "../common/Popup/Popup";
+import examService from "./../../services/examService";
 import "./QuestionPaper.scss";
 
 const QuestionPaper = () => {

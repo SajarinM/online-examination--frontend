@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Redirect, useLocation } from "react-router-dom";
 import Joi from "joi-browser";
-import authService from "./../services/authService";
 import useForm from "./common/Form/useForm";
 import StartupForm from "./common/StartupForm/StartupForm";
+import authService from "./../services/authService";
 
 const LoginForm = () => {
 	const [data, setData] = useState({ username: "", password: "" });

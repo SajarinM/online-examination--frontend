@@ -1,8 +1,7 @@
 import http from "./httpService";
 import jwtDecode from "jwt-decode";
-import { apiUrl } from "../config.json";
 
-const apiEndpoint = apiUrl + "auth";
+const apiEndpoint = "/auth";
 const tokenKey = "token";
 
 http.setJwt(getJwt());
@@ -37,11 +36,6 @@ export function changePassword(data) {
 	return http.put(apiEndpoint, data);
 }
 
-export const userTypes = {
-	student: "student",
-	teacher: "teacher",
-};
-
 const authService = {
 	login,
 	logout,
@@ -49,6 +43,5 @@ const authService = {
 	loginWithJwt,
 	getJwt,
 	changePassword,
-	userTypes,
 };
 export default authService;

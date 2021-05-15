@@ -26,7 +26,7 @@ const Navbar = () => {
 			<nav className="nav">
 				<img src={logo} alt="trillo logo" className="logo" />
 				{navItems.map((item) => {
-					const { to, renderCondition, align, label, icon } = item;
+					const { to, renderCondition, align, label } = item;
 					return (
 						renderCondition && (
 							<NavLink

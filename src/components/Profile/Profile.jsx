@@ -1,17 +1,16 @@
 import React, { createRef, useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import Joi from "joi-browser";
 import { UserContext } from "./../../contexts/userContext";
 import { ExamContext } from "./../../contexts/examContext";
 import { ResultContext } from "./../../contexts/resultContext";
 import { RequestContext } from "./../../contexts/requestContext";
 import Icon from "./../common/Icon/Icon";
-import profile from "../../assets/icons/profile.svg";
-import "./Profile.scss";
 import Popup from "./../common/Popup/Popup";
 import useForm from "./../common/Form/useForm";
-import Joi from "joi-browser";
 import authService from "./../../services/authService";
-import { toast } from "react-toastify";
+import "./Profile.scss";
 
 const Profile = () => {
 	const { user, friends } = useContext(UserContext);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Joi from "joi-browser";
-import useForm from "../common/Form/useForm";
+import useForm from "./common/Form/useForm";
 
 const questionTypes = [
 	{ _id: 0, name: "optional" },

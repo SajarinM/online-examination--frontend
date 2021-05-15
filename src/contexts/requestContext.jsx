@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { UserContext } from "./userContext";
 import requestService from "../services/requestService";
 import db from "../utilities/db";
-import { UserContext } from "./userContext";
 
 export const RequestContext = createContext();
 RequestContext.displayName = "RequestContext";

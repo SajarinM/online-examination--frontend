@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import Table from "../common/Table/Table";
+import { toast } from "react-toastify";
 import { UserContext } from "../../contexts/userContext";
 import { RequestContext } from "../../contexts/requestContext";
-import { userTypes } from "../../services/authService";
-import { toast } from "react-toastify";
+import Table from "../common/Table/Table";
 import date from "../../utilities/date";
 
 const RequestsTable = ({ selectedStatus }) => {
@@ -26,7 +25,7 @@ const RequestsTable = ({ selectedStatus }) => {
 		},
 		{
 			key: "accepted",
-			condition: user.type === userTypes.teacher,
+			condition: user.isTeacher,
 			content: (request) =>
 				request.status === "pending" && (
 					<button
@@ -42,7 +41,7 @@ const RequestsTable = ({ selectedStatus }) => {
 		},
 		{
 			key: "rejected",
-			condition: user && user.type === userTypes.teacher,
+			condition: user.isTeacher,
 			content: (request) =>
 				request.status === "pending" && (
 					<button
@@ -68,9 +67,9 @@ const RequestsTable = ({ selectedStatus }) => {
 	};
 
 	function getUserIdPath() {
-		if (user.type === userTypes.teacher) {
+		if (user.isTeacher) {
 			return "studentUsername";
-		} else if (user.type === userTypes.student) {
+		} else {
 			return "teacherUsername";
 		}
 	}

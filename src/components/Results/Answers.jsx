@@ -1,10 +1,10 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import Table from "../common/Table/Table";
 import { useParams } from "react-router";
 import { UserContext } from "../../contexts/userContext";
 import { ResultContext } from "../../contexts/resultContext";
-import TextButton from "../common/TextButton/TextButton";
+import Table from "../common/Table/Table";
 import BackButton from "../common/BackButton";
+import TextButton from "../common/TextButton/TextButton";
 
 const Answers = () => {
 	const {
