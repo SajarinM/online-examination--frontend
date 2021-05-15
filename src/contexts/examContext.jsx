@@ -50,6 +50,7 @@ const ExamProvider = ({ children }) => {
 		try {
 			setExams(exams.filter((e) => e._id !== id));
 			await examService.deleteExam(id);
+			toast.success("Exam deleted");
 		} catch (error) {
 			toast.error("Error deleting examination.Please try again...");
 			setExams(originalExams);
@@ -68,7 +69,6 @@ const ExamProvider = ({ children }) => {
 			setExams(newExams);
 			toast.success("Results published successfully");
 		} catch (error) {
-			console.log(error);
 			toast.error("Error publishing results.Please try again...");
 		}
 	}

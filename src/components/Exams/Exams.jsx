@@ -9,7 +9,7 @@ import ExamsList from "./ExamsList";
 import queryString from "query-string";
 
 const Exams = () => {
-	const {user} = useContext(UserContext);
+	const { user } = useContext(UserContext);
 	const { exams } = useContext(ExamContext);
 	const query = queryString.parse(useLocation().search);
 
@@ -17,7 +17,6 @@ const Exams = () => {
 
 	function populateExams() {
 		let data = exams;
-		console.log(query);
 		const { teacher } = query;
 		if (teacher) data = data.filter((e) => e.author._id === teacher);
 		if (search)

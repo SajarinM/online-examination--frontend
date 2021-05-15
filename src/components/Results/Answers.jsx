@@ -58,7 +58,7 @@ const Answers = () => {
 		{
 			label: "",
 			key: "edit_mark",
-			render: isTeacher,
+			condition: isTeacher,
 			content: (item) => (
 				<TextButton
 					button={{ label: "Edit Mark" }}
@@ -79,7 +79,6 @@ const Answers = () => {
 		<Fragment>
 			<section className="actions">
 				<BackButton className="btn btn-outline-primary action-item" />
-
 				<div
 					className="btn btn-secondary action-item ml-auto"
 					style={{ cursor: "initial" }}
@@ -87,6 +86,11 @@ const Answers = () => {
 					Total marks :{" "}
 					{data.reduce(
 						(acc, item) => acc + (parseInt(item.marksGiven) || 0),
+						0
+					)}{" "}
+					/{" "}
+					{data.reduce(
+						(acc, item) => acc + (parseInt(item.mark) || 0),
 						0
 					)}
 				</div>

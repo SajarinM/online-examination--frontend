@@ -5,9 +5,9 @@ import userService from "./../services/userService";
 
 export const UserContext = createContext();
 UserContext.displayName = "UserContext";
+const user = authService.getCurrentUser();
 
 const UserProvider = ({ children }) => {
-	const user = authService.getCurrentUser();
 	const [friends, setFriends] = useState([]);
 
 	useEffect(() => {
@@ -18,7 +18,7 @@ const UserProvider = ({ children }) => {
 			} catch (error) {}
 		}
 		if (user) run();
-	}, [user]);
+	}, []);
 
 	async function removeFriend(friend) {
 		const originalFriends = [...friends];

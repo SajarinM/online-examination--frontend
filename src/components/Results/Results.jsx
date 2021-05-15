@@ -50,15 +50,9 @@ const Results = () => {
 		<Fragment>
 			<section className="actions">
 				<BackButton className="btn btn-outline-primary action-item" />
-				<button
-					className="btn btn-primary action-item ml-auto"
-					onClick={() => {}}
-				>
-					Calculate Marks
-				</button>
 				{isExamOnly(query) && (
 					<button
-						className="btn btn-success action-item"
+						className="btn btn-success action-item ml-auto"
 						onClick={() => {
 							publishResults(query.exam);
 						}}

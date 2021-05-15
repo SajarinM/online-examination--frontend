@@ -33,8 +33,8 @@ const ExamsList = ({ exams }) => {
 				`Start : ${date.toDisplay(startingTime)}`,
 				`Due : ${date.toDisplay(dueTime)}`,
 				`No Of Questions : ${noOfQuestions}`,
-				`Invigilator : ${author.name}`,
 				`Total Marks : ${totalMarks}`,
+				`Invigilator : ${author.name}`,
 			],
 			buttons: [
 				{
@@ -65,6 +65,7 @@ const ExamsList = ({ exams }) => {
 					deleteExam(_id);
 				},
 			});
+			card.details.pop();
 		} else if (!exam.isResultPublished) {
 			card.buttons.pop();
 		}

@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../../contexts/userContext";
+import { ExamContext } from "./../../../contexts/examContext";
 import Icon from "../Icon/Icon";
 import logo from "../../../assets/images/logo.png";
 import profile from "../../../assets/icons/profile.svg";
-
 import "./Sidebar.scss";
-import { ExamContext } from "./../../../contexts/examContext";
 
 const Sidebar = () => {
 	const { user } = useContext(UserContext);

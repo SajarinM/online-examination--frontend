@@ -8,7 +8,7 @@ RequestContext.displayName = "RequestContext";
 
 const RequestProvider = ({ children }) => {
 	const [requests, setRequests] = useState([]);
-	const user = useContext(UserContext);
+	const { user } = useContext(UserContext);
 
 	useEffect(() => {
 		async function getRequests() {
@@ -43,7 +43,6 @@ const RequestProvider = ({ children }) => {
 				request,
 				status
 			);
-			console.log(data);
 			return data.message;
 		} catch (error) {
 			setRequests(originalRequests);

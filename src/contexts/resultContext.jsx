@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { UserContext } from "./userContext";
 import resultService from "../services/resultService";
 
 export const ResultContext = createContext();
@@ -8,14 +9,16 @@ const ResultProvider = ({ children }) => {
 	const [results, setResults] = useState([]);
 	const [loading, setloading] = useState(true);
 
+	const { user } = useContext(UserContext);
+
 	useEffect(() => {
 		async function getResults() {
 			const { data: results } = await resultService.getResults();
 			setResults(results);
 			setloading(false);
 		}
-		getResults();
-	}, []);
+		if (user) getResults();
+	}, [user]);
 
 	function getResult(id) {
 		return results.find((r) => r._id === id);

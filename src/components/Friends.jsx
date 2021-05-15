@@ -79,7 +79,12 @@ const Friends = () => {
 	return (
 		<section className="content mh-100 d-flex-c">
 			<div className="content-item fl-1">
-				<Table columns={columns} data={friends} serialNo />
+				<Table
+					columns={columns}
+					data={friends}
+					label={isTeacher ? "students" : "teachers"}
+					serialNo
+				/>
 			</div>
 		</section>
 	);
