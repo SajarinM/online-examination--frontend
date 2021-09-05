@@ -1,36 +1,36 @@
 .navigation-sub {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
 
-	&__item {
-		list-style: none;
-		margin: 1rem 2rem;
-		color: #333;
-		font-size: 1.5rem;
-		font-weight: 600;
-		transition: all 0.1s;
-		color: #333;
-		text-decoration: none;
-		text-transform: uppercase;
-		display: inline-block;
-		border-bottom: 2px solid transparent;
-		padding-bottom: 0.25rem;
-		padding-top: 1rem;
+    &__item {
+        list-style: none;
+        margin: 0.5rem 2rem;
+        color: #333;
+        font-size: 1.5rem;
+        font-weight: 600;
+        transition: all 0.1s;
+        color: #333;
+        text-decoration: none;
+        text-transform: uppercase;
+        display: inline-block;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 0.25rem;
+        padding-top: 1rem;
 
-		&:not(:last-of-type) {
-			margin-right: 1rem;
-		}
+        &:not(:last-of-type) {
+            margin-right: 1rem;
+        }
 
-		&:hover {
-			color: blue;
-			cursor: pointer;
-		}
+        &:hover {
+            color: blue;
+            cursor: pointer;
+        }
 
-		&--active {
-			color: blue;
-			border-bottom: 2px solid blue;
-		}
-	}
+        &--active {
+            color: blue;
+            border-bottom: 2px solid blue;
+        }
+    }
 }

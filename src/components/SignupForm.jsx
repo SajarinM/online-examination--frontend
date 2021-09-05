@@ -39,8 +39,8 @@ const SignupForm = () => {
     });
 
     const userTypes = [
-        { id: 0, name: "Student" },
-        { id: 1, name: "Teacher" },
+        { _id: 0, name: "Student" },
+        { _id: 1, name: "Teacher" },
     ];
 
     const formData = {
@@ -89,6 +89,7 @@ const SignupForm = () => {
                     {renderSelect({
                         name: "type",
                         label: "User Type",
+                        valuePath: "name",
                         options: userTypes,
                         formGroupClassName:
                             "form-group col-1-of-2 welcome-form__group",
