@@ -4,81 +4,85 @@ import { Link } from "react-router-dom";
 import queryString from "query-string";
 import { ExamContext } from "../../contexts/examContext";
 import { ResultContext } from "../../contexts/resultContext";
+import { UserContext } from "../../contexts/userContext";
 import Table from "../common/Table/Table";
 import BackButton from "../common/BackButton";
 import "./Results.scss";
 
 const Results = () => {
-	const { publishResults } = useContext(ExamContext);
-	const { results } = useContext(ResultContext);
+    const { publishResults } = useContext(ExamContext);
+    const { results } = useContext(ResultContext);
+    const {
+        user: { isTeacher },
+    } = useContext(UserContext);
 
-	const query = queryString.parse(useLocation().search);
+    const query = queryString.parse(useLocation().search);
 
-	const columns = [
-		{
-			label: "Student",
-			path: "student.name",
-		},
-		{
-			label: "Exam",
-			condition: !query.exam,
-			path: "exam.name",
-		},
-		{
-			key: "view_answers",
-			content: (result) => (
-				<Link
-					className="btn btn-outline-primary btn-small"
-					to={`/results/${result._id}`}
-				>
-					View Answers
-				</Link>
-			),
-		},
-	];
+    const columns = [
+        {
+            label: "Student",
+            path: "student.name",
+        },
+        {
+            label: "Exam",
+            condition: !query.exam,
+            path: "exam.name",
+        },
+        {
+            key: "view_answers",
+            content: (result) => (
+                <Link
+                    className="btn btn-outline-primary btn-small"
+                    to={`/results/${result._id}`}
+                >
+                    {isTeacher ? "View Answers" : "View Result"}
+                </Link>
+            ),
+        },
+    ];
 
-	function populateData() {
-		let data = results;
-		const { exam, student, teacher } = query;
-		if (exam) data = data.filter((d) => d.exam._id === exam);
-		if (student) data = data.filter((d) => d.student._id === student);
-		if (teacher) data = data.filter((d) => d.exam.author === teacher);
-		return data;
-	}
+    function populateData() {
+        let data = results;
+        const { exam, student, teacher } = query;
+        if (exam) data = data.filter((d) => d.exam._id === exam);
+        if (student) data = data.filter((d) => d.student._id === student);
+        if (teacher) data = data.filter((d) => d.exam.author === teacher);
+        return data;
+    }
 
-	return (
-		<Fragment>
-			<section className="actions">
-				<BackButton className="btn btn-outline-primary action-item" />
-				{isExamOnly(query) && (
-					<button
-						className="btn btn-success action-item ml-auto"
-						onClick={() => {
-							publishResults(query.exam);
-						}}
-					>
-						Publish Result
-					</button>
-				)}
-			</section>
-			<section className="content">
-				<div className="content-item fl-1">
-					<Table
-						columns={columns}
-						data={populateData()}
-						serialNo="No"
-						label="Results"
-					/>
-				</div>
-			</section>
-		</Fragment>
-	);
+    return (
+        <Fragment>
+            <section className="actions">
+                <BackButton className="btn btn-outline-primary action-item" />
+                {isTeacher && isExamOnly(query) && (
+                    <button
+                        className="btn btn-success action-item ml-auto"
+                        onClick={() => {
+                            publishResults(query.exam);
+                        }}
+                    >
+                        Publish Result
+                    </button>
+                )}
+            </section>
+            <section className="content">
+                <div className="content-item fl-1">
+                    <Table
+                        columns={columns}
+                        data={populateData()}
+                        serialNo="No"
+                        label="Results"
+                    />
+                </div>
+            </section>
+        </Fragment>
+    );
 };
 
 function isExamOnly(obj) {
-	const entries = Object.entries(obj);
-	if (!entries.length) return false;
-	return entries[0][0] === "exam" && entries.length === 1;
+    const entries = Object.entries(obj);
+    if (!entries.length) return false;
+    return entries[0][0] === "exam" && entries.length === 1;
 }
 
 export default Results;
