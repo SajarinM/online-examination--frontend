@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: obscure-shore-89633.herokuapp.com
+Token: 508d941a5eb5b5d5b79160fe361ba7eddf7709d41c7b75f109b2e3490d365dee
